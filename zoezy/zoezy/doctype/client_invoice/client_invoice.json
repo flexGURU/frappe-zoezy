@@ -1,0 +1,152 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:IN-{YYYY}-{MM}-{####}",
+ "creation": "2026-05-09 13:12:17.176247",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_lztx",
+  "client",
+  "client_name",
+  "column_break_qqxd",
+  "posting_date",
+  "status",
+  "accounting_dimension_section",
+  "subscription",
+  "section_break_klud",
+  "packages",
+  "section_break_eawn",
+  "column_break_pjel",
+  "column_break_dcho",
+  "total",
+  "section_break_nnwd",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_lztx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Client Invoice",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Client",
+   "options": "Client",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_nnwd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "client.full_name",
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_qqxd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "now",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Status",
+   "options": "Paid\nOverdue\nUnpaid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_klud",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "packages",
+   "fieldtype": "Table",
+   "label": "Packages",
+   "options": "Client Invoice Package",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_eawn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_pjel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dcho",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total",
+   "non_negative": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "accounting_dimension_section",
+   "fieldtype": "Section Break",
+   "label": "Accounting Dimension"
+  },
+  {
+   "fieldname": "subscription",
+   "fieldtype": "Link",
+   "label": "Subscription",
+   "options": "Client Subscription"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-05-10 14:39:01.226796",
+ "modified_by": "Administrator",
+ "module": "Zoezy",
+ "name": "Client Invoice",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "client_name"
+}

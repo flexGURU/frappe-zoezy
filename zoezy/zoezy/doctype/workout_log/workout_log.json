@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2026-05-10 19:52:54.665907",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "details_section",
+  "client",
+  "client_name",
+  "title",
+  "column_break_sylz",
+  "day",
+  "category",
+  "column_break_ldxw",
+  "section_break_ywed",
+  "workout_log_exercise",
+  "section_break_gbvp",
+  "column_break_psbc",
+  "column_break_bczn",
+  "column_break_buzo",
+  "total_sets"
+ ],
+ "fields": [
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Client",
+   "options": "Client",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_sylz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "day",
+   "fieldtype": "Select",
+   "label": "Day",
+   "options": "\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+   "reqd": 1
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "section_break_ywed",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_gbvp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_psbc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_bczn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_buzo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_sets",
+   "fieldtype": "Int",
+   "label": "Total Sets",
+   "read_only": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Workout Category",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "client.full_name",
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "workout_log_exercise",
+   "fieldtype": "Table",
+   "label": "Workout Log Exercise",
+   "options": "Workout Log Exercise"
+  },
+  {
+   "fieldname": "column_break_ldxw",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-24 14:09:15.857330",
+ "modified_by": "Administrator",
+ "module": "Zoezy",
+ "name": "Workout Log",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

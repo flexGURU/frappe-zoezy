@@ -1,0 +1,48 @@
+{
+ "cards": [
+  {
+   "card": "Total Clients"
+  },
+  {
+   "card": "Active Clients"
+  },
+  {
+   "card": "Inactive Clients"
+  },
+  {
+   "card": "Active Subscriptions"
+  },
+  {
+   "card": "Inactive Subscriptions"
+  }
+ ],
+ "charts": [
+  {
+   "width": "Half"
+  },
+  {
+   "chart": "Client Growth",
+   "width": "Half"
+  },
+  {
+   "chart": "Client Lead Source Distribution",
+   "width": "Half"
+  },
+  {
+   "chart": "Invoice Summary",
+   "width": "Half"
+  }
+ ],
+ "creation": "2026-05-10 14:41:41.165811",
+ "dashboard_name": "Zoezy",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2026-05-24 14:16:01.250940",
+ "modified_by": "Administrator",
+ "module": "Zoezy",
+ "name": "Zoezy",
+ "owner": "Administrator"
+}

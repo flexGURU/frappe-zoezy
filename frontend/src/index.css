@@ -1,0 +1,4 @@
+@import 'frappe-ui/src/style.css';
+body {
+	font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+}
