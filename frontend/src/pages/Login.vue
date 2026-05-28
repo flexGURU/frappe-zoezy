@@ -134,9 +134,11 @@
 						/>
 					</div>
 
-					<ErrorMessage v-if="signupError" :message="signupError" />
+					<ErrorMessage :message="signup.error" />
 
-					<Button size="md" theme="blue" :loading="signup.loading" class="w-full">Sign Up</Button>
+					<Button size="md" theme="blue" :loading="signup.loading" class="w-full"
+						>Sign Up</Button
+					>
 
 					<p class="text-center text-sm text-gray-600 mt-2">
 						Already have an account?
@@ -159,11 +161,17 @@
 </template>
 
 <script setup>
-import { reactive, ref, watch } from 'vue'
+import { onBeforeMount, reactive, ref, watch } from 'vue'
 import { Button, Input, toast, ErrorMessage, createResource } from 'frappe-ui'
 import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
+
+onBeforeMount(() => {
+	if (auth.isLoggedIn) {
+		window.location.href = '/zoezy/dashboard'
+	}
+})
 
 const activeView = ref('login')
 const signupError = ref('')
@@ -192,33 +200,34 @@ function handleSignup() {
 		signupError.value = 'All fields are required.'
 		return
 	}
-	signup.submit(
-		{},
-		{
-			onSucccess: () => {
-				toast.success(
-					'Account created successfully! An email Invite has been sent to your email address.',
-				)
-				activeView.value = 'login'
-			},
-			onError: (error) => {
-				toast.error(error)
-			},
-		},
-	)
+	signup.submit()
 }
 
 const signup = createResource({
-	url: 'zoezy.api.user.signup',
+	url: 'zoezy.api.user.sign_up',
 	makeParams: () => ({
 		first_name: signupForm.firstName,
 		last_name: signupForm.lastName,
 		email: signupForm.email,
 		phone: signupForm.phone,
 	}),
+	onSuccess() {
+		toast({
+			title: 'Successful! Please check your email for login details.',
+			icon: 'check',
+			iconClasses: 'text-green-500',
+		})
+		setTimeout(() => {
+			activeView.value = 'login'
+		}, 5000)
+	},
+	onError(err) {
+		signupError.value = err.messages?.[0] || err.message || 'Signup failed.'
+	},
 })
 watch(activeView, (newView) => {
 	if (newView === 'login') {
+		auth.loginResource.error = null
 		signupForm.firstName = ''
 		signupForm.lastName = ''
 		signupForm.email = ''

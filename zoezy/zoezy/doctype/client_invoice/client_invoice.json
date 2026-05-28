@@ -14,6 +14,8 @@
   "status",
   "accounting_dimension_section",
   "subscription",
+  "column_break_atye",
+  "currency",
   "section_break_klud",
   "packages",
   "section_break_eawn",
@@ -108,21 +110,30 @@
   },
   {
    "fieldname": "accounting_dimension_section",
-   "fieldtype": "Section Break",
-   "label": "Accounting Dimension"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "subscription",
    "fieldtype": "Link",
    "label": "Subscription",
    "options": "Client Subscription"
+  },
+  {
+   "fieldname": "column_break_atye",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-10 14:39:01.226796",
+ "modified": "2026-05-27 20:44:39.267349",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Client Invoice",

@@ -24,7 +24,7 @@ class Client(Document):
         phone_number: DF.Data
         profile_image: DF.AttachImage | None
         status: DF.Literal["Active", "Inactive"]
-        user_id: DF.Link | None
+        user_id: DF.Link
     # end: auto-generated types
 
     pass

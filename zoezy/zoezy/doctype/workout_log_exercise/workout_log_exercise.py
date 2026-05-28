@@ -18,7 +18,9 @@ class WorkoutLogExercise(Document):
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
+		rep_range: DF.Int
 		sets: DF.Int
+		video_url: DF.SmallText | None
 	# end: auto-generated types
 
 	pass

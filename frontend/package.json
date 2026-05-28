@@ -4,21 +4,22 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/assets/zoezy/frontend/ && yarn copy-html-entry",
+    "copy-html-entry": "cp ../zoezy/public/frontend/index.html ../zoezy/www/zoezy.html",
     "preview": "vite preview"
   },
   "dependencies": {
     "feather-icons": "^4.28.0",
-    "frappe-ui": "^0.0.105",
+    "frappe-ui": "0.0.105",
     "pinia": "^3.0.4",
     "vue": "^3.5.34",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.0.0",
+    "@vitejs/plugin-vue": "^2.3.4",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
     "tailwindcss": "^3.0.15",
-    "vite": "^2.7.2"
+    "vite": "^2.9.18"
   }
 }

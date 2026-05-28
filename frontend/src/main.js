@@ -6,6 +6,7 @@ import App from './App.vue'
 
 import { Button, setConfig, frappeRequest, resourcesPlugin } from 'frappe-ui'
 import { createPinia } from 'pinia'
+import { useUserStore } from './stores/user.js'
 
 let app = createApp(App)
 
@@ -16,4 +17,6 @@ app.use(resourcesPlugin)
 app.use(createPinia())
 
 app.component('Button', Button)
+const { fetchUserResource } = useUserStore()
+
 app.mount('#app')

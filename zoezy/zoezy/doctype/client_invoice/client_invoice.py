@@ -18,6 +18,7 @@ class ClientInvoice(Document):
 		amended_from: DF.Link | None
 		client: DF.Link
 		client_name: DF.Data | None
+		currency: DF.Link | None
 		packages: DF.Table[ClientInvoicePackage]
 		posting_date: DF.Date
 		status: DF.Literal["Paid", "Overdue", "Unpaid"]

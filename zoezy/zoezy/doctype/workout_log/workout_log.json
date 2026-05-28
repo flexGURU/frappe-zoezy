@@ -15,7 +15,7 @@
   "category",
   "column_break_ldxw",
   "section_break_ywed",
-  "workout_log_exercise",
+  "exercises",
   "section_break_gbvp",
   "column_break_psbc",
   "column_break_bczn",
@@ -96,20 +96,20 @@
    "read_only": 1
   },
   {
-   "fieldname": "workout_log_exercise",
-   "fieldtype": "Table",
-   "label": "Workout Log Exercise",
-   "options": "Workout Log Exercise"
-  },
-  {
    "fieldname": "column_break_ldxw",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "exercises",
+   "fieldtype": "Table",
+   "label": "Exercise",
+   "options": "Workout Log Exercise"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-24 14:09:15.857330",
+ "modified": "2026-05-27 15:39:02.931279",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Workout Log",

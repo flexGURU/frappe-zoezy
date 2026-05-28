@@ -4,13 +4,16 @@ import { ref } from 'vue'
 import router from '../router'
 
 export const useAuthStore = defineStore('auth', () => {
-	const user = ref(null)
-	const isLoggedIn = ref(false)
+	const user = ref(getUserFromCookie())
+	const isLoggedIn = ref(getSessionFromCookie())
 
 	const loginResource = createResource({
 		url: 'login',
 		onSuccess() {
-			getSessionFromCookie()
+			if (getSessionFromCookie()) {
+				isLoggedIn.value = true
+				user.value = getUserFromCookie()
+			}
 			router.push('/dashboard')
 		},
 		onError(err) {
@@ -30,16 +33,28 @@ export const useAuthStore = defineStore('auth', () => {
 	function getSessionFromCookie() {
 		let cookies = new URLSearchParams(document.cookie.split('; ').join('&'))
 		let _sessionUser = cookies.get('user_id')
-		const isGuest = !_sessionUser || _sessionUser === 'Guest'
-		user.value = isGuest ? null : _sessionUser
-		isLoggedIn.value = !isGuest
+		if (_sessionUser == 'Guest' || !_sessionUser) {
+			return false
+		} else return true
 	}
+
+	function getUserFromCookie() {
+		let cookies = new URLSearchParams(document.cookie.split('; ').join('&'))
+		let _sessionUser = cookies.get('user_id')
+		if (_sessionUser == 'Guest' || !_sessionUser) return null
+		return decodeURIComponent(_sessionUser)
+	}
+
+	const logoutResource = createResource({
+		url: 'logout',
+		onSuccess: () => {
+			getSessionFromCookie()
+		},
+	})
 
 	function logout() {
-		user.value = null
-		isLoggedIn.value = false
-		router.push('/login')
+		logoutResource.submit()
 	}
 
-	return { user, isLoggedIn, loginResource, login, getSessionFromCookie, logout }
+	return { user, isLoggedIn, loginResource, login, logout }
 })

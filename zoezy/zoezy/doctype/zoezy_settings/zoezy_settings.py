@@ -5,7 +5,7 @@
 from frappe.model.document import Document
 
 
-class ExerciseType(Document):
+class ZoezySettings(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -14,9 +14,7 @@ class ExerciseType(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		category: DF.Link
-		exercise_name: DF.Data
-		video_url: DF.SmallText | None
+		default_currency: DF.Link | None
 	# end: auto-generated types
 
 	pass

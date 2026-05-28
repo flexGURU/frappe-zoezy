@@ -114,6 +114,7 @@
    "fieldtype": "Link",
    "label": "User ID",
    "options": "User",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -128,7 +129,7 @@
  "image_field": "profile_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-10 15:24:52.213958",
+ "modified": "2026-05-27 14:31:59.906933",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Client",

@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "exercise_name",
+  "video_url",
   "column_break_xklm",
   "category"
  ],
@@ -32,12 +33,18 @@
   {
    "fieldname": "column_break_xklm",
    "fieldtype": "Column Break"
+  },
+  {
+   "description": "Paste Url of video here for client to see",
+   "fieldname": "video_url",
+   "fieldtype": "Small Text",
+   "label": "Video Url"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-10 20:01:13.653238",
+ "modified": "2026-05-27 20:10:27.354947",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Exercise Type",

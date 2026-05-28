@@ -16,7 +16,7 @@ add_to_apps_screen = [
         "name": app_name,
         "title": app_title,
         "logo": "/assets/zoezy/images/zoezy-logo.png",
-        "route": "/dashboard-view/Zoezy",
+        "route": "/zoezy",
         "has_permission": "zoezy.api.permission.has_app_permission",
     }
 ]
@@ -256,4 +256,4 @@ export_python_type_annotations = True
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
-website_route_rules = [{'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},]
+website_route_rules = [{'from_route': '/zoezy/<path:app_path>', 'to_route': 'zoezy'},]
