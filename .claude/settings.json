@@ -12,7 +12,10 @@
       "Bash(python -c \"import ast; ast.parse\\(open\\('zoezy/api/user.py'\\).read\\(\\)\\); print\\('user.py syntax OK'\\)\")",
       "Bash(yarn build *)",
       "Bash(python -c \"import ast; ast.parse\\(open\\('zoezy/api/user.py'\\).read\\(\\)\\); print\\('OK'\\)\")",
-      "Bash(git check-ignore *)"
+      "Bash(git check-ignore *)",
+      "Bash(python -c \"import json; json.load\\(open\\('zoezy/zoezy/number_card/inactive_clients/inactive_clients.json'\\)\\); print\\('valid JSON'\\)\")",
+      "Bash(cd /home/mukuna/Desktop/bench/v-16; grep -rn \"Creating Desktop Icons\\\\|Error creating icons\\\\|def sync_desktop_icons\\\\|def make_all_icons\\\\|def add_standard_desktop_icons\\\\|def make_icon_of_module\" apps/frappe/frappe/ 2>/dev/null | head)",
+      "Read(//home/mukuna/Desktop/bench/v-16/**)"
     ]
   }
 }
