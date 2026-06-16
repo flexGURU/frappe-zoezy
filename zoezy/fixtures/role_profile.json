@@ -1,0 +1,26 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-06-15 07:41:19.118181",
+  "name": "Client",
+  "role_profile": "Client",
+  "roles": [
+   {
+    "role": "Client"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-06-15 23:12:28.013278",
+  "name": "Trainer",
+  "role_profile": "Trainer",
+  "roles": [
+   {
+    "role": "Trainer"
+   }
+  ]
+ }
+]

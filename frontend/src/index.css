@@ -1,4 +1,10 @@
-@import 'frappe-ui/src/style.css';
-body {
-	font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+@import "frappe-ui/style.css";
+
+html {
+	font-feature-settings:
+		"calt" 1,
+		"cv01" 1,
+		"cv03" 1,
+		"cv04" 1,
+		"cv11" 1;
 }

@@ -59,6 +59,7 @@ def get_client_invoices() -> list[dict]:
             .left_join(client_invoice_package)
             .on(client_invoice_package.parent == client_invoice.name)
             .where(client_invoice.client == frappe.session.user)
+            .where(client_invoice.docstatus == 1)
             .select(
                 client_invoice.name,
                 client_invoice.posting_date,
@@ -99,10 +100,10 @@ def get_client_invoices() -> list[dict]:
 
 @frappe.whitelist()
 def get_client_subscriptions() -> list[dict]:
+    client_subscription = DocType("Client Subscription")
+    package_type = DocType("Package Type")
+    package_type_items = DocType("Package Type Items")
     try:
-        client_subscription = DocType("Client Subscription")
-        package_type = DocType("Package Type")
-        package_type_items = DocType("Package Type Items")
 
         rows = (
             frappe.qb.from_(client_subscription)
@@ -172,6 +173,8 @@ def get_client_workout_logs() -> list[dict]:
                     "exercise": exercise,
                     "sets": sets,
                     "rep_range": rep_range,
+                    "video_url": log.get("video_url"),
+                    "description": log.get("description"),
                 }
             )
 
@@ -191,8 +194,12 @@ def get_client_workout_logs() -> list[dict]:
                 workout_log_exercise.exercise,
                 workout_log_exercise.sets,
                 workout_log_exercise.rep_range,
+                workout_log_exercise.video_url,
+                workout_log_exercise.description,
             )
             .distinct()
+            .orderby(workout_log.name)
+            .orderby(workout_log_exercise.idx)
         )
 
         return process_workout_logs(logs.run(as_dict=True))

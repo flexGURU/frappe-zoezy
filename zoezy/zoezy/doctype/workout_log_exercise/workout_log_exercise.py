@@ -14,6 +14,7 @@ class WorkoutLogExercise(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
+		description: DF.SmallText | None
 		exercise: DF.Link
 		parent: DF.Data
 		parentfield: DF.Data

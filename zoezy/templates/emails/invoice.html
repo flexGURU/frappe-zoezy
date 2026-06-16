@@ -1,0 +1,361 @@
+<div
+	style="
+		margin: 0;
+		padding: 0;
+		background-color: #eff6ff;
+		font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif;
+		color: #1f2937;
+	"
+>
+	<table
+		role="presentation"
+		width="100%"
+		cellpadding="0"
+		cellspacing="0"
+		style="background-color: #eff6ff; padding: 24px 0"
+	>
+		<tr>
+			<td align="center">
+				<table
+					role="presentation"
+					width="600"
+					cellpadding="0"
+					cellspacing="0"
+					style="
+						max-width: 600px;
+						width: 100%;
+						background-color: #ffffff;
+						border-radius: 14px;
+						overflow: hidden;
+						border: 1px solid #dbeafe;
+					"
+				>
+					<!-- Header -->
+					<tr>
+						<td
+							style="
+								background-color: #2563eb;
+								background: linear-gradient(135deg, #2563eb, #3b82f6);
+								padding: 28px 32px;
+							"
+						>
+							<table
+								role="presentation"
+								width="100%"
+								cellpadding="0"
+								cellspacing="0"
+							>
+								<tr>
+									<td style="color: #ffffff; font-size: 20px; font-weight: 600">
+										{{ _("Invoice") }}
+										<div
+											style="
+												font-size: 13px;
+												font-weight: 400;
+												opacity: 0.85;
+												margin-top: 4px;
+											"
+										>
+											{{ name }}
+										</div>
+									</td>
+									<td align="right">
+										<span
+											style="
+												display: inline-block;
+												background-color: rgba(255, 255, 255, 0.18);
+												border: 1px solid rgba(255, 255, 255, 0.4);
+												color: #ffffff;
+												padding: 6px 14px;
+												border-radius: 999px;
+												font-size: 12px;
+												font-weight: 600;
+												text-transform: uppercase;
+												letter-spacing: 0.04em;
+											"
+										>
+											{{ status or _("Unpaid") }}
+										</span>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+					<!-- Unpaid alert -->
+					<tr>
+						<td
+							style="
+								background-color: #eff6ff;
+								color: #1d4ed8;
+								padding: 14px 32px;
+								font-size: 14px;
+								font-weight: 500;
+								border-bottom: 1px solid #dbeafe;
+							"
+						>
+							{{ _("You have an unpaid invoice. Please settle the outstanding balance
+							to keep your subscription active.") }}
+						</td>
+					</tr>
+
+					<!-- Body -->
+					<tr>
+						<td style="padding: 28px 32px">
+							<table
+								role="presentation"
+								width="100%"
+								cellpadding="0"
+								cellspacing="0"
+								style="margin-bottom: 24px"
+							>
+								<tr>
+									<td width="50%" style="padding-bottom: 16px">
+										<div
+											style="
+												font-size: 11px;
+												text-transform: uppercase;
+												letter-spacing: 0.05em;
+												color: #6b7280;
+												margin-bottom: 2px;
+											"
+										>
+											{{ _("Billed To") }}
+										</div>
+										<div
+											style="
+												font-size: 15px;
+												color: #111827;
+												font-weight: 500;
+											"
+										>
+											{{ client_name or client }}
+										</div>
+									</td>
+									<td width="50%" style="padding-bottom: 16px">
+										<div
+											style="
+												font-size: 11px;
+												text-transform: uppercase;
+												letter-spacing: 0.05em;
+												color: #6b7280;
+												margin-bottom: 2px;
+											"
+										>
+											{{ _("Posting Date") }}
+										</div>
+										<div
+											style="
+												font-size: 15px;
+												color: #111827;
+												font-weight: 500;
+											"
+										>
+											{{ frappe.utils.formatdate(posting_date) }}
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td width="50%">
+										<div
+											style="
+												font-size: 11px;
+												text-transform: uppercase;
+												letter-spacing: 0.05em;
+												color: #6b7280;
+												margin-bottom: 2px;
+											"
+										>
+											{{ _("Subscription") }}
+										</div>
+										<div
+											style="
+												font-size: 15px;
+												color: #111827;
+												font-weight: 500;
+											"
+										>
+											{{ subscription or "-" }}
+										</div>
+									</td>
+									<td width="50%">
+										<div
+											style="
+												font-size: 11px;
+												text-transform: uppercase;
+												letter-spacing: 0.05em;
+												color: #6b7280;
+												margin-bottom: 2px;
+											"
+										>
+											{{ _("Amount Due") }}
+										</div>
+										<div
+											style="
+												font-size: 15px;
+												color: #111827;
+												font-weight: 500;
+											"
+										>
+											{{ frappe.utils.fmt_money(outstanding_amount or total,
+											currency=currency) }}
+										</div>
+									</td>
+								</tr>
+							</table>
+
+							<!-- Packages -->
+							<table
+								role="presentation"
+								width="100%"
+								cellpadding="0"
+								cellspacing="0"
+								style="border-collapse: collapse; margin-bottom: 24px"
+							>
+								<tr>
+									<td
+										style="
+											text-align: left;
+											font-size: 11px;
+											text-transform: uppercase;
+											letter-spacing: 0.05em;
+											color: #1d4ed8;
+											background-color: #eff6ff;
+											padding: 12px 16px;
+										"
+									>
+										{{ _("Package") }}
+									</td>
+									<td
+										style="
+											text-align: right;
+											font-size: 11px;
+											text-transform: uppercase;
+											letter-spacing: 0.05em;
+											color: #1d4ed8;
+											background-color: #eff6ff;
+											padding: 12px 16px;
+										"
+									>
+										{{ _("Unit Price") }}
+									</td>
+								</tr>
+								{% for row in packages %}
+								<tr>
+									<td
+										style="
+											padding: 14px 16px;
+											border-bottom: 1px solid #f1f5f9;
+											font-size: 14px;
+											color: #1f2937;
+										"
+									>
+										{{ row.package_name }}
+									</td>
+									<td
+										style="
+											padding: 14px 16px;
+											border-bottom: 1px solid #f1f5f9;
+											font-size: 14px;
+											color: #1f2937;
+											text-align: right;
+										"
+									>
+										{{ frappe.utils.fmt_money(row.unit_price,
+										currency=currency) }}
+									</td>
+								</tr>
+								{% endfor %}
+							</table>
+
+							<!-- Totals -->
+							<table
+								role="presentation"
+								width="100%"
+								cellpadding="0"
+								cellspacing="0"
+							>
+								<tr>
+									<td></td>
+									<td width="260" style="width: 260px">
+										<table
+											role="presentation"
+											width="100%"
+											cellpadding="0"
+											cellspacing="0"
+										>
+											<tr>
+												<td
+													style="
+														padding: 8px 0;
+														font-size: 14px;
+														color: #374151;
+													"
+												>
+													{{ _("Total") }}
+												</td>
+												<td
+													style="
+														padding: 8px 0;
+														font-size: 14px;
+														color: #374151;
+														text-align: right;
+													"
+												>
+													{{ frappe.utils.fmt_money(total,
+													currency=currency) }}
+												</td>
+											</tr>
+											<tr>
+												<td
+													style="
+														border-top: 2px solid #dbeafe;
+														padding-top: 14px;
+														font-size: 17px;
+														font-weight: 700;
+														color: #1d4ed8;
+													"
+												>
+													{{ _("Amount Due") }}
+												</td>
+												<td
+													style="
+														border-top: 2px solid #dbeafe;
+														padding-top: 14px;
+														font-size: 17px;
+														font-weight: 700;
+														color: #1d4ed8;
+														text-align: right;
+													"
+												>
+													{{ frappe.utils.fmt_money(outstanding_amount or
+													total, currency=currency) }}
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+					<!-- Footer -->
+					<tr>
+						<td
+							style="
+								padding: 20px 32px;
+								background-color: #f8fafc;
+								border-top: 1px solid #dbeafe;
+								font-size: 12px;
+								color: #6b7280;
+								text-align: center;
+							"
+						>
+							{{ _("Thank you for choosing {0}.").format(brand) }}
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>

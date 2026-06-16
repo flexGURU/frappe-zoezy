@@ -149,23 +149,9 @@ add_to_apps_screen = [
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"zoezy.tasks.all"
-# 	],
-# 	"daily": [
-# 		"zoezy.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"zoezy.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"zoezy.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"zoezy.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+    "daily": "zoezy.zoezy.doctype.client_subscription.client_subscription.handle_subscription_expiry"
+}
 
 # Testing
 # -------
@@ -256,4 +242,20 @@ export_python_type_annotations = True
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
-website_route_rules = [{'from_route': '/zoezy/<path:app_path>', 'to_route': 'zoezy'},]
+website_route_rules = [{"from_route": "/zoezy/<path:app_path>", "to_route": "zoezy"}]
+fixtures = [
+    {
+        "doctype": "Role Profile",
+        "filters": [["name", "in", ["Client", "Trainer"]]],
+    },
+    {
+        "doctype": "Role",
+        "filters": [
+            [
+                "name",
+                "in",
+                ["Client", "Trainer"],
+            ]
+        ],
+    },
+]

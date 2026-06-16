@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(grep -rn \"blue\\\\|#[0-9a-fA-F]\\\\{3,6\\\\}\\\\|rgb\\\\|primary\" tailwind.config.js src/index.css)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('zoezy/zoezy/report/profit_analysis/profit_analysis.py'\\).read\\(\\)\\); print\\('syntax OK'\\)\")",
+      "Bash(python -)",
+      "Read(//home/mukuna/Desktop/v-16/apps/frappe/frappe/**)",
+      "Bash(find / -path '*frappe/utils/data.py')",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('zoezy/zoezy/report/profit_analysis/profit_analysis.py'\\).read\\(\\)\\); print\\('py syntax OK'\\)\")",
+      "Bash(node --check zoezy/zoezy/report/profit_analysis/profit_analysis.js)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('zoezy/api/user.py'\\).read\\(\\)\\); print\\('user.py syntax OK'\\)\")",
+      "Bash(yarn build *)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('zoezy/api/user.py'\\).read\\(\\)\\); print\\('OK'\\)\")",
+      "Bash(git check-ignore *)"
+    ]
+  }
+}

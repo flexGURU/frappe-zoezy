@@ -1,0 +1,28 @@
+[
+ {
+  "desk_access": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 0,
+  "modified": "2026-05-27 09:57:25.403437",
+  "name": "Client",
+  "restrict_to_domain": null,
+  "role_name": "Client",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": "/desk/dashboard-view/Zoezy",
+  "is_custom": 0,
+  "modified": "2026-06-15 23:00:23.839061",
+  "name": "Trainer",
+  "restrict_to_domain": null,
+  "role_name": "Trainer",
+  "two_factor_auth": 0
+ }
+]

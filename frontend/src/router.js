@@ -1,54 +1,40 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from './stores/auth'
+import { userResource } from "@/data/user";
+import { createRouter, createWebHistory } from "vue-router";
+import { session } from "./data/session";
 
 const routes = [
 	{
-		path: '/',
-		redirect: '/dashboard',
+		path: "/",
+		name: "Home",
+		component: () => import("@/pages/Home.vue"),
 	},
 	{
-		path: '/login',
-		name: 'Login',
-		component: () => import('@/pages/Login.vue'),
+		name: "Login",
+		path: "/login",
+		component: () => import("@/pages/Login.vue"),
 	},
-	{
-		path: '/dashboard',
-		name: 'Dashboard',
-		component: () => import('@/pages/Dashboard.vue'),
-		meta: { requiresAuth: true, title: 'Dashboard' },
-	},
-	{
-		path: '/invoices',
-		name: 'Invoices',
-		component: () => import('@/pages/Invoices.vue'),
-		meta: { requiresAuth: true, title: 'My Invoices' },
-	},
-	{
-		path: '/subscriptions',
-		name: 'Subscriptions',
-		component: () => import('@/pages/Subscription.vue'),
-		meta: { requiresAuth: true, title: 'My Subscription' },
-	},
-	{
-		path: '/profile',
-		name: 'Profile',
-		component: () => import('@/pages/Profile.vue'),
-		meta: { requiresAuth: true, title: 'My Profile' },
-	},
-]
+];
 
-let router = createRouter({
-	history: createWebHistory('/zoezy'),
+const router = createRouter({
+	history: createWebHistory("/zoezy"),
 	routes,
-})
+});
 
-router.beforeEach((to, from, next) => {
-	const { isLoggedIn } = useAuthStore()
-
-	if (to.meta.requiresAuth && !isLoggedIn) {
-		next({ name: 'Login', query: { redirect: to.fullPath } })
-	} else {
-		next()
+router.beforeEach(async (to, from, next) => {
+	let isLoggedIn = session.isLoggedIn;
+	try {
+		await userResource.promise;
+	} catch (error) {
+		isLoggedIn = false;
 	}
-})
-export default router
+
+	if (to.name === "Login" && isLoggedIn) {
+		next({ name: "Home" });
+	} else if (to.name !== "Login" && !isLoggedIn) {
+		next({ name: "Login" });
+	} else {
+		next();
+	}
+});
+
+export default router;

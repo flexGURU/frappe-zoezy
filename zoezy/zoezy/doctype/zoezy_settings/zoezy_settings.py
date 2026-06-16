@@ -14,7 +14,10 @@ class ZoezySettings(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
+		active_period_duration: DF.Int
+		brand_name: DF.Data | None
 		default_currency: DF.Link | None
+		payment_number: DF.Data | None
 	# end: auto-generated types
 
 	pass

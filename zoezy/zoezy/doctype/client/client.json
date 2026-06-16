@@ -7,39 +7,30 @@
  "engine": "InnoDB",
  "field_order": [
   "details_section",
-  "first_name",
-  "last_name",
+  "email",
+  "userid",
   "status",
   "profile_image",
   "column_break_uppy",
+  "first_name",
+  "last_name",
   "full_name",
-  "email",
   "phone_number",
   "age",
+  "column_break_poqz",
   "section_break_yblt",
   "lead_source",
   "column_break_jkpk",
   "date_joined",
-  "section_break_rbln",
-  "user_id"
+  "column_break_fcwc"
  ],
  "fields": [
-  {
-   "fieldname": "first_name",
-   "fieldtype": "Data",
-   "label": "First Name",
-   "reqd": 1
-  },
-  {
-   "fieldname": "last_name",
-   "fieldtype": "Data",
-   "label": "Last Name"
-  },
   {
    "fieldname": "column_break_uppy",
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "email.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "in_standard_filter": 1,
@@ -48,11 +39,12 @@
    "unique": 1
   },
   {
+   "fetch_from": "user_id.email",
    "fieldname": "email",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Email",
-   "options": "Email",
+   "options": "User",
    "reqd": 1,
    "unique": 1
   },
@@ -62,11 +54,11 @@
    "label": "Details"
   },
   {
+   "fetch_from": "email.phone",
    "fieldname": "phone_number",
    "fieldtype": "Data",
    "label": "Phone Number",
-   "options": "Phone",
-   "reqd": 1
+   "options": "Phone"
   },
   {
    "fieldname": "status",
@@ -104,24 +96,37 @@
    "label": "Date Joined"
   },
   {
-   "collapsible": 1,
-   "fieldname": "section_break_rbln",
-   "fieldtype": "Section Break",
-   "label": "User Details"
-  },
-  {
-   "fieldname": "user_id",
-   "fieldtype": "Link",
-   "label": "User ID",
-   "options": "User",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
    "fieldname": "profile_image",
    "fieldtype": "Attach Image",
    "hidden": 1,
    "label": "Profile Image",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fcwc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_poqz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "email.first_name",
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fetch_from": "email.last_name",
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "userid",
+   "fieldtype": "Link",
+   "label": "UserId",
+   "options": "User",
    "read_only": 1
   }
  ],
@@ -129,7 +134,7 @@
  "image_field": "profile_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-27 14:31:59.906933",
+ "modified": "2026-06-15 23:17:08.114073",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Client",
@@ -149,7 +154,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
  "show_title_field_in_link": 1,

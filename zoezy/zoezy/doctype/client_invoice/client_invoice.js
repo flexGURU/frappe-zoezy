@@ -2,8 +2,39 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Client Invoice", {
+	refresh: (frm) => {
+		frm.trigger("get_indicator");
+	},
 	validate: (frm) => {
 		setTotal(frm);
+	},
+
+	client: (frm) => {
+		frm.set_query("subscription", () => {
+			return {
+				filters: {
+					client: frm.doc.client,
+				},
+			};
+		});
+	},
+
+	subscription: async (frm) => {
+		if (frm.doc.subscription) {
+			response = await frappe.db.get_value("Client Subscription", frm.doc.subscription, [
+				"package_type",
+				"package_price",
+			]);
+
+			const packageType = response?.message?.package_type;
+			const packagePrice = response?.message?.package_price;
+
+			if (packageType && packagePrice) {
+				frm.clear_table("packages");
+				frm.add_child("packages", { package_name: packageType, unit_price: packagePrice });
+				frm.refresh_field("packages");
+			}
+		}
 	},
 });
 frappe.ui.form.on("Client Invoice Package", {

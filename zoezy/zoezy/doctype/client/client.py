@@ -16,45 +16,26 @@ class Client(Document):
 
         age: DF.Int
         date_joined: DF.Date | None
-        email: DF.Data
-        first_name: DF.Data
+        email: DF.Link
+        first_name: DF.Data | None
         full_name: DF.Data | None
         last_name: DF.Data | None
         lead_source: DF.Link | None
-        phone_number: DF.Data
+        phone_number: DF.Data | None
         profile_image: DF.AttachImage | None
         status: DF.Literal["Active", "Inactive"]
-        user_id: DF.Link
+        userid: DF.Link | None
     # end: auto-generated types
 
     pass
 
     def validate(self):
         self.set_full_name()
-
-    def on_update(self):
-        self.create_user()
+        self.userid = self.email
 
     def set_full_name(self):
-        self.full_name = f"{self.first_name} {self.last_name or ''}".strip()
+        self.full_name = f"{self.first_name or ''} {self.last_name or ''}"
 
-    def create_user(self):
-        if not frappe.db.exists("User", self.email):
-            try:
-                user = frappe.get_doc(
-                    {
-                        "doctype": "User",
-                        "email": self.email,
-                        "first_name": self.first_name,
-                        "last_name": self.last_name,
-                        "enabled": 1,
-                    }
-                )
-                user.insert(ignore_permissions=True)
-            except Exception:
-                frappe.log_error(
-                    f"Failed to create user for client {self.name}",
-                    frappe.get_traceback(),
-                )
-            else:
-                self.user_id = user.name
+    @property
+    def user(self) -> str | None:
+        return self.user_id
