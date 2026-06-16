@@ -13,9 +13,7 @@ class ClientInvoice(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from zoezy.zoezy.doctype.client_invoice_package.client_invoice_package import (
-            ClientInvoicePackage,
-        )
+        from zoezy.zoezy.doctype.client_invoice_package.client_invoice_package import ClientInvoicePackage
 
         amended_from: DF.Link | None
         client: DF.Link

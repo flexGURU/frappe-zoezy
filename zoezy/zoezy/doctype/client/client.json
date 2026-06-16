@@ -134,7 +134,7 @@
  "image_field": "profile_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-15 23:17:08.114073",
+ "modified": "2026-06-16 18:45:00.352157",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Client",
@@ -150,6 +150,19 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Trainer",
+   "select": 1,
    "share": 1,
    "write": 1
   }

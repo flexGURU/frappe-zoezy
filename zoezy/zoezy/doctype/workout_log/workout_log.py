@@ -13,23 +13,12 @@ class WorkoutLog(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from zoezy.zoezy.doctype.workout_log_exercise.workout_log_exercise import (
-            WorkoutLogExercise,
-        )
+        from zoezy.zoezy.doctype.workout_log_exercise.workout_log_exercise import WorkoutLogExercise
 
         category: DF.Link
         client: DF.Link
         client_name: DF.Data | None
-        day: DF.Literal[
-            "",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-        ]
+        day: DF.Literal["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         exercises: DF.Table[WorkoutLogExercise]
         title: DF.Data | None
         total_sets: DF.Int

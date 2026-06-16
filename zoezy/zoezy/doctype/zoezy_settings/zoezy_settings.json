@@ -47,7 +47,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-06-14 13:15:46.242408",
+ "modified": "2026-06-16 18:42:29.086520",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Zoezy Settings",
@@ -60,6 +60,17 @@
    "print": 1,
    "read": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Trainer",
+   "select": 1,
    "share": 1,
    "write": 1
   }
