@@ -270,6 +270,48 @@
 									</span>
 								</button>
 
+								<!-- Weight -->
+								<div
+									v-if="ex.progressive_overload"
+									class="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs"
+								>
+									<span
+										class="inline-flex items-center gap-1 rounded-md bg-surface-green-2 px-1.5 py-0.5 font-medium text-ink-green-3"
+									>
+										<FeatherIcon name="trending-up" class="h-3 w-3" />
+										Progressive
+									</span>
+									<span class="text-ink-gray-6 tabular-nums">
+										Start
+										<span class="font-semibold text-ink-gray-8"
+											>{{ ex.start_weight }} kg</span
+										>
+									</span>
+									<span class="text-ink-gray-4">·</span>
+									<span class="text-ink-gray-6 tabular-nums">
+										{{ ex.sets }} set{{ ex.sets !== 1 ? "s" : "" }}
+									</span>
+									<span class="text-ink-gray-4">·</span>
+									<span class="text-ink-gray-6 tabular-nums">
+										+{{ ex.progression_weight }} kg/step
+									</span>
+									<span class="text-ink-gray-4">·</span>
+									<span class="text-ink-gray-6 tabular-nums">
+										Final
+										<span class="font-semibold text-ink-gray-8"
+											>{{ ex.final_weight }} kg</span
+										>
+									</span>
+								</div>
+								<div
+									v-else-if="ex.stagnant_weight"
+									class="mt-1.5 text-xs text-ink-gray-6 tabular-nums"
+								>
+									<span class="font-semibold text-ink-gray-8"
+										>{{ ex.stagnant_weight }} kg</span
+									>
+								</div>
+
 								<div
 									v-if="hasDetails(ex) && isExpanded(log.category, i)"
 									class="mt-3 space-y-3"
