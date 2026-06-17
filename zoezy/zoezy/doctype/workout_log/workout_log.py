@@ -13,23 +13,12 @@ class WorkoutLog(Document):
 
     if TYPE_CHECKING:
         from frappe.types import DF
-        from zoezy.zoezy.doctype.workout_log_exercise.workout_log_exercise import (
-            WorkoutLogExercise,
-        )
+        from zoezy.zoezy.doctype.workout_log_exercise.workout_log_exercise import WorkoutLogExercise
 
         category: DF.Link
         client: DF.Link
         client_name: DF.Data | None
-        day: DF.Literal[
-            "",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-        ]
+        day: DF.Literal["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         exercises: DF.Table[WorkoutLogExercise]
         title: DF.Data | None
         total_sets: DF.Int
@@ -43,7 +32,6 @@ class WorkoutLog(Document):
     def validate(self):
         self.set_total_sets()
         self.validate_exercise()
-        self.calculate_final_weight()
 
     def set_total_sets(self):
         self.total_sets = sum(exercise.sets for exercise in self.exercises)
@@ -58,7 +46,3 @@ class WorkoutLog(Document):
                 frappe.throw(f"Duplicate exercise '{exercise}' found.")
 
             seen.add(exercise)
-
-    def calculate_final_weight(self):
-        for row in self.exercises:
-            row.final_weight = row.start_weight * row.sets

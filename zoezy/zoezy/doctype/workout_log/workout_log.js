@@ -8,6 +8,7 @@ frappe.ui.form.on("Workout Log", {
 
 	category(frm) {
 		filterExercisesByCategory(frm);
+		// Clear existing exercises when category changes
 		frm.clear_table("exercises");
 		frm.refresh_field("exercises");
 	},

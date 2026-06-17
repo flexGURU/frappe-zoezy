@@ -11,16 +11,7 @@
   "rep_range",
   "column_break_gwqw",
   "video_url",
-  "description",
-  "section_break_lnvp",
-  "progressive_overload",
-  "section_break_itbt",
-  "stagnant_weight",
-  "column_break_rggn",
-  "start_weight",
-  "progression_weight",
-  "column_break_mivl",
-  "final_weight"
+  "description"
  ],
  "fields": [
   {
@@ -65,69 +56,13 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "label": "Description"
-  },
-  {
-   "fieldname": "section_break_lnvp",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "progressive_overload",
-   "fieldtype": "Check",
-   "label": "Progressive Overload"
-  },
-  {
-   "fieldname": "section_break_itbt",
-   "fieldtype": "Section Break"
-  },
-  {
-   "depends_on": "eval:!doc.progressive_overload",
-   "description": "The amount of weight (in kilograms)  perform the exercise.",
-   "fieldname": "stagnant_weight",
-   "fieldtype": "Int",
-   "label": "Stagnant Weight",
-   "mandatory_depends_on": "eval:!doc.progressive_overload",
-   "non_negative": 1
-  },
-  {
-   "fieldname": "column_break_rggn",
-   "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "eval:doc.progressive_overload",
-   "description": "The amount of weight (in kilograms)  to start the exercise.",
-   "fieldname": "start_weight",
-   "fieldtype": "Int",
-   "label": "Start Weight",
-   "mandatory_depends_on": "eval:doc.progressive_overload",
-   "non_negative": 1
-  },
-  {
-   "fieldname": "column_break_mivl",
-   "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "eval:doc.progressive_overload",
-   "fieldname": "final_weight",
-   "fieldtype": "Int",
-   "label": "Final Weight",
-   "non_negative": 1,
-   "read_only": 1
-  },
-  {
-   "depends_on": "eval:doc.progressive_overload",
-   "description": "The amount of weight (in kilograms) added to the exercise when progressing to the next load.",
-   "fieldname": "progression_weight",
-   "fieldtype": "Int",
-   "label": "Progression Weight",
-   "mandatory_depends_on": "eval:doc.progressive_overload"
   }
  ],
  "grid_page_length": 100,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-17 23:20:00.148635",
+ "modified": "2026-06-14 12:44:29.910496",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Workout Log Exercise",
