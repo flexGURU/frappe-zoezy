@@ -1,0 +1,177 @@
+{
+ "app": "zoezy",
+ "charts": [],
+ "content": "[{\"id\":\"l0GM_EKKrR\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Welcome to Zoezy</span>\",\"col\":12}},{\"id\":\"9Czc7ihIXt\",\"type\":\"card\",\"data\":{\"card_name\":\"Client\",\"col\":3}},{\"id\":\"t8Gb7DSDKR\",\"type\":\"card\",\"data\":{\"card_name\":\"Workouts\",\"col\":3}},{\"id\":\"F1albpO7Hb\",\"type\":\"card\",\"data\":{\"card_name\":\"Invoicing\",\"col\":3}},{\"id\":\"tfgd2PgIZA\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":3}},{\"id\":\"GWekm3RN33\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"KKS7Ite9ja\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Client\",\"col\":4}},{\"id\":\"mUbmyU8m5S\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Client Invoice\",\"col\":4}}]",
+ "creation": "2026-06-17 22:28:04.594576",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Zoezy",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Client",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Client",
+   "link_count": 0,
+   "link_to": "Client",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "User",
+   "link_count": 0,
+   "link_to": "User",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Invoicing",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Client Invoice",
+   "link_count": 0,
+   "link_to": "Client Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Package Type",
+   "link_count": 0,
+   "link_to": "Package Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Client Subscription",
+   "link_count": 0,
+   "link_to": "Client Subscription",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Entry",
+   "link_count": 0,
+   "link_to": "Payment Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Workouts",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Workout Log",
+   "link_count": 0,
+   "link_to": "Workout Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Workout Category",
+   "link_count": 0,
+   "link_to": "Workout Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Exercise Type",
+   "link_count": 0,
+   "link_to": "Exercise Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Profit Analysis",
+   "link_count": 0,
+   "link_to": "Profit Analysis",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-06-17 22:48:53.970501",
+ "modified_by": "Administrator",
+ "module": "Zoezy",
+ "name": "Zoezy",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Client",
+   "label": "Client",
+   "quick_list_filter": "[]"
+  },
+  {
+   "document_type": "Client Invoice",
+   "label": "Client Invoice",
+   "quick_list_filter": "[[\"Client Invoice\",\"status\",\"=\",\"Unpaid\"]]"
+  }
+ ],
+ "roles": [],
+ "sequence_id": 0.0,
+ "shortcuts": [],
+ "title": "Zoezy",
+ "type": "Workspace"
+}
