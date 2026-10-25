@@ -14,8 +14,9 @@ export const session = {
 	isLoggedIn: computed(() => Boolean(user.value)),
 
 	async login(email: string, password: string) {
-		await call("login", { usr: email, pwd: password })
-		window.location.href = "/zoezy"
+		const response = await call<{ home_page?: string }>("login", { usr: email, pwd: password })
+		const home = response?.home_page?.replace(/^\/?/, "/") || "/zoezy"
+		window.location.href = home
 	},
 
 	async logout() {
