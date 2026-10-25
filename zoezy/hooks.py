@@ -15,12 +15,18 @@ app_logo_url = "/assets/zoezy/icons/desktop_icons/zoezy.svg"
 
 add_to_apps_screen = [
 	{
+		"title": app_title,
+		"logo": "/assets/zoezy/icons/desktop_icons/zoezy.svg",
+		"route": "/desk/zoezy",
+		"has_permission": "zoezy.api.permission.has_desk_permission",
+	},
+	{
 		"name": app_name,
 		"title": app_title,
 		"logo": "/assets/zoezy/icons/desktop_icons/zoezy.svg",
 		"route": "/zoezy",
-		"has_permission": "zoezy.api.permission.has_app_permission",
-	}
+		"has_permission": "zoezy.api.permission.has_portal_permission",
+	},
 ]
 
 # Includes in <head>
