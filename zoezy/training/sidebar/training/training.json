@@ -1,0 +1,62 @@
+{
+ "app": "zoezy",
+ "doctype": "Sidebar",
+ "header_icon": "training-duotone",
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "doctype": "Sidebar Item",
+   "icon": "dumbbell",
+   "idx": 1,
+   "indent": 0,
+   "is_default_module": 1,
+   "keep_closed": 0,
+   "label": "Workout Plans",
+   "link_to": "Workout Log",
+   "link_type": "DocType",
+   "parentfield": "items",
+   "parenttype": "Sidebar",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "doctype": "Sidebar Item",
+   "icon": "activity",
+   "idx": 2,
+   "indent": 0,
+   "is_default_module": 1,
+   "keep_closed": 0,
+   "label": "Exercises",
+   "link_to": "Exercise Type",
+   "link_type": "DocType",
+   "parentfield": "items",
+   "parenttype": "Sidebar",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "doctype": "Sidebar Item",
+   "icon": "tags",
+   "idx": 3,
+   "indent": 0,
+   "is_default_module": 1,
+   "keep_closed": 0,
+   "label": "Workout Categories",
+   "link_to": "Workout Category",
+   "link_type": "DocType",
+   "parentfield": "items",
+   "parenttype": "Sidebar",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "module": "Training",
+ "name": "Training",
+ "standard": 1,
+ "title": "Training"
+}

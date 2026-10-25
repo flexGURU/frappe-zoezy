@@ -7,4 +7,39 @@ html {
 		"cv03" 1,
 		"cv04" 1,
 		"cv11" 1;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	@apply bg-surface-gray-1 text-ink-gray-8 antialiased;
+}
+
+@layer components {
+	.card {
+		@apply rounded-[24px] border border-outline-gray-1 bg-surface-base;
+	}
+
+	.card-night {
+		@apply rounded-[28px] bg-night text-white;
+		background-image: radial-gradient(
+			120% 90% at 100% 0%,
+			rgb(200 243 29 / 0.16) 0%,
+			transparent 55%
+		);
+	}
+
+	.eyebrow {
+		@apply text-xs-semibold uppercase tracking-[0.12em];
+	}
+}
+
+.pb-safe {
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
+.no-scrollbar {
+	scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
 }

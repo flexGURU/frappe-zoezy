@@ -1,9 +1,11 @@
-<script setup>
-import { FrappeUIProvider } from "frappe-ui";
+<script setup lang="ts">
+import { FrappeUIProvider, useColorScheme } from "frappe-ui";
+
+useColorScheme();
 </script>
 
 <template>
 	<FrappeUIProvider>
-		<router-view />
+		<RouterView />
 	</FrappeUIProvider>
 </template>

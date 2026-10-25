@@ -13,11 +13,19 @@
    "card": "Active Subscriptions"
   },
   {
-   "card": "Inactive Subscriptions"
+   "card": "Outstanding Amount"
+  },
+  {
+   "card": "Overdue Invoices"
   }
  ],
  "charts": [
   {
+   "chart": "Collections",
+   "width": "Half"
+  },
+  {
+   "chart": "Invoice Summary",
    "width": "Half"
   },
   {
@@ -27,10 +35,6 @@
   {
    "chart": "Client Lead Source Distribution",
    "width": "Half"
-  },
-  {
-   "chart": "Invoice Summary",
-   "width": "Half"
   }
  ],
  "creation": "2026-05-10 14:41:41.165811",
@@ -38,9 +42,9 @@
  "docstatus": 0,
  "doctype": "Dashboard",
  "idx": 0,
- "is_default": 1,
+ "is_default": 0,
  "is_standard": 1,
- "modified": "2026-05-24 14:16:01.250940",
+ "modified": "2026-10-25 22:00:00.000000",
  "modified_by": "Administrator",
  "module": "Zoezy",
  "name": "Zoezy",

@@ -11,14 +11,16 @@ app_license = "mit"
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
+app_logo_url = "/assets/zoezy/icons/desktop_icons/zoezy.svg"
+
 add_to_apps_screen = [
-    {
-        "name": app_name,
-        "title": app_title,
-        "logo": "/assets/zoezy/images/zoezy-logo.png",
-        "route": "/zoezy",
-        "has_permission": "zoezy.api.permission.has_app_permission",
-    }
+	{
+		"name": app_name,
+		"title": app_title,
+		"logo": "/assets/zoezy/icons/desktop_icons/zoezy.svg",
+		"route": "/zoezy",
+		"has_permission": "zoezy.api.permission.has_app_permission",
+	}
 ]
 
 # Includes in <head>
@@ -51,7 +53,7 @@ add_to_apps_screen = [
 # Svg Icons
 # ------------------
 # include app icons in desk
-# app_include_icons = "zoezy/public/icons.svg"
+app_include_icons = ["/assets/zoezy/icons/zoezy-icons.svg"]
 
 # Home Pages
 # ----------
@@ -86,7 +88,7 @@ add_to_apps_screen = [
 # ------------
 
 # before_install = "zoezy.install.before_install"
-# after_install = "zoezy.install.after_install"
+after_install = "zoezy.install.after_install"
 
 # Uninstallation
 # ------------
@@ -150,7 +152,10 @@ add_to_apps_screen = [
 # ---------------
 
 scheduler_events = {
-    "daily": "zoezy.zoezy.doctype.client_subscription.client_subscription.handle_subscription_expiry"
+	"daily": [
+		"zoezy.clients.doctype.client_subscription.client_subscription.update_subscription_statuses",
+		"zoezy.billing.doctype.client_invoice.client_invoice.mark_overdue_invoices",
+	]
 }
 
 # Testing
@@ -244,18 +249,18 @@ export_python_type_annotations = True
 
 website_route_rules = [{"from_route": "/zoezy/<path:app_path>", "to_route": "zoezy"}]
 fixtures = [
-    {
-        "doctype": "Role Profile",
-        "filters": [["name", "in", ["Client", "Trainer"]]],
-    },
-    {
-        "doctype": "Role",
-        "filters": [
-            [
-                "name",
-                "in",
-                ["Client", "Trainer"],
-            ]
-        ],
-    },
+	{
+		"doctype": "Role Profile",
+		"filters": [["name", "in", ["Client", "Trainer"]]],
+	},
+	{
+		"doctype": "Role",
+		"filters": [
+			[
+				"name",
+				"in",
+				["Client", "Trainer"],
+			]
+		],
+	},
 ]

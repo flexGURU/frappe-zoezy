@@ -1,0 +1,47 @@
+{
+ "app": "zoezy",
+ "creation": "2026-10-25 23:00:00",
+ "docstatus": 0,
+ "doctype": "Dock",
+ "idx": 0,
+ "items": [
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "zoezy-duotone",
+   "link_to": "Zoezy",
+   "link_type": "Sidebar",
+   "title": "Zoezy"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "clients-duotone",
+   "link_to": "Clients",
+   "link_type": "Sidebar",
+   "title": "Clients"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "billing-duotone",
+   "link_to": "Billing",
+   "link_type": "Sidebar",
+   "title": "Billing"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "training-duotone",
+   "link_to": "Training",
+   "link_type": "Sidebar",
+   "title": "Training"
+  }
+ ],
+ "modified": "2026-10-25 23:00:00",
+ "modified_by": "Administrator",
+ "name": "zoezy",
+ "owner": "Administrator",
+ "standard": 1,
+ "user": ""
+}

@@ -1,0 +1,330 @@
+{
+ "app": "zoezy",
+ "charts": [
+  {
+   "chart_name": "Collections",
+   "label": "Collections"
+  },
+  {
+   "chart_name": "Client Growth",
+   "label": "Client Growth"
+  }
+ ],
+ "content": "[{\"id\": \"zoezy00001\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Clients\", \"col\": 3}}, {\"id\": \"zoezy00002\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Subscriptions\", \"col\": 3}}, {\"id\": \"zoezy00003\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Outstanding Amount\", \"col\": 3}}, {\"id\": \"zoezy00004\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Overdue Invoices\", \"col\": 3}}, {\"id\": \"zoezy00005\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Collections\", \"col\": 6}}, {\"id\": \"zoezy00006\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Client Growth\", \"col\": 6}}, {\"id\": \"zoezy00007\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick access</b></span>\", \"col\": 12}}, {\"id\": \"zoezy00008\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Clients\", \"col\": 4}}, {\"id\": \"zoezy00009\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Subscriptions\", \"col\": 4}}, {\"id\": \"zoezy00010\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Unpaid Invoices\", \"col\": 4}}, {\"id\": \"zoezy00011\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Record Payment\", \"col\": 4}}, {\"id\": \"zoezy00012\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Workout Plans\", \"col\": 4}}, {\"id\": \"zoezy00013\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Client App\", \"col\": 4}}]",
+ "creation": "2026-10-25 22:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 1,
+ "icon": "zap",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Zoezy",
+ "links": [],
+ "modified": "2026-10-25 22:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Zoezy",
+ "name": "Zoezy",
+ "number_cards": [
+  {
+   "label": "Active Clients",
+   "number_card_name": "Active Clients"
+  },
+  {
+   "label": "Active Subscriptions",
+   "number_card_name": "Active Subscriptions"
+  },
+  {
+   "label": "Outstanding Amount",
+   "number_card_name": "Outstanding Amount"
+  },
+  {
+   "label": "Overdue Invoices",
+   "number_card_name": "Overdue Invoices"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Trainer"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 30.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Clients",
+   "link_to": "Client",
+   "stats_filter": "{\"status\": \"Active\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Subscriptions",
+   "link_to": "Client Subscription",
+   "stats_filter": "{\"status\": \"Active\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Unpaid Invoices",
+   "link_to": "Client Invoice",
+   "stats_filter": "{\"docstatus\": 1, \"outstanding_amount\": [\">\", 0]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Record Payment",
+   "link_to": "Payment Entry",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Workout Plans",
+   "link_to": "Workout Log",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "label": "Client App",
+   "type": "URL",
+   "url": "/zoezy"
+  }
+ ],
+ "sidebar_items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "house",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Home",
+   "link_to": "Zoezy",
+   "link_type": "Workspace",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "layout-dashboard",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Dashboard",
+   "link_to": "Zoezy",
+   "link_type": "Dashboard",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "users",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Clients",
+   "link_to": "Client",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "calendar-range",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Subscriptions",
+   "link_to": "Client Subscription",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "receipt-text",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Invoices",
+   "link_to": "Client Invoice",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "hand-coins",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Payments",
+   "link_to": "Payment Entry",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "dumbbell",
+   "indent": 1,
+   "keep_closed": 1,
+   "label": "Training",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 1,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Workout Plans",
+   "link_to": "Workout Log",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Exercises",
+   "link_to": "Exercise Type",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Workout Categories",
+   "link_to": "Workout Category",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "chart-column",
+   "indent": 1,
+   "keep_closed": 1,
+   "label": "Reports",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 1,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Profit Analysis",
+   "link_to": "Profit Analysis",
+   "link_type": "Report",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "database",
+   "indent": 1,
+   "keep_closed": 1,
+   "label": "Setup",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 1,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Packages",
+   "link_to": "Package Type",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Lead Sources",
+   "link_to": "Lead Source",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "settings",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Settings",
+   "link_to": "Zoezy Settings",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "external-link",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Client App",
+   "link_type": "URL",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link",
+   "url": "/zoezy"
+  }
+ ],
+ "standard": 1,
+ "title": "Zoezy",
+ "type": "Workspace"
+}
