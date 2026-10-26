@@ -16,17 +16,16 @@ class WorkoutLogExercise(Document):
 
 		description: DF.SmallText | None
 		exercise: DF.Link
-		final_weight: DF.Int
+		final_weight: DF.Float
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
-		progression_weight: DF.Int
-		progressive_overload: DF.Check
-		rep_range: DF.Int
+		progression_weight: DF.Float
+		rep_range: DF.Data | None
 		sets: DF.Int
-		stagnant_weight: DF.Int
-		start_weight: DF.Int
+		start_weight: DF.Float
 		video_url: DF.SmallText | None
+		weight_mode: DF.Literal["Manual", "Progressive"]
 	# end: auto-generated types
 
 	pass

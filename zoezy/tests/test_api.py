@@ -3,7 +3,13 @@ from frappe.tests import IntegrationTestCase
 from frappe.utils import today
 
 from zoezy.api import auth, invoice, profile, subscription, workout
-from zoezy.tests.factories import make_exercise, make_package, make_subscription
+from zoezy.tests.factories import (
+	make_exercise,
+	make_package,
+	make_subscription,
+	manual_sets,
+	plan_row,
+)
 
 EMAIL = "api-client@zoezy.test"
 
@@ -34,15 +40,9 @@ class TestClientAPI(IntegrationTestCase):
 				"day": "Wednesday",
 				"category": "Test Legs",
 				"exercises": [
-					{
-						"exercise": squat,
-						"sets": 3,
-						"rep_range": "10",
-						"progressive_overload": 1,
-						"start_weight": 20,
-						"progression_weight": 5,
-					}
+					plan_row(squat, 3, "Progressive", start_weight=20, progression_weight=5),
 				],
+				"set_plan": manual_sets(squat, (10, 0), (10, 0), (8, 0)),
 			}
 		).insert()
 		make_subscription(EMAIL, make_package(), today())
@@ -57,7 +57,12 @@ class TestClientAPI(IntegrationTestCase):
 		self.assertEqual([d["day"] for d in week][:3], ["Monday", "Tuesday", "Wednesday"])
 		self.assertEqual(len(week), 7)
 		exercise = week[2]["sessions"][0]["exercises"][0]
-		self.assertEqual((exercise["reps"], exercise["final_weight"]), ("10", 30))
+		self.assertEqual((exercise["reps"], exercise["final_weight"]), ("8-10", 30))
+		self.assertEqual(
+			[(d["set_no"], d["reps"], d["weight"]) for d in exercise["set_details"]],
+			[(1, 10, 20), (2, 10, 25), (3, 8, 30)],
+		)
+		self.assertFalse(me["is_staff"])
 
 		subs = subscription.get_subscriptions()
 		self.assertEqual(subs[0]["items"], ["4 sessions a week"])

@@ -16,6 +16,7 @@
   "column_break_ldxw",
   "section_break_ywed",
   "exercises",
+  "set_plan",
   "section_break_gbvp",
   "column_break_psbc",
   "column_break_bczn",
@@ -108,12 +109,19 @@
    "fieldtype": "Table",
    "label": "Exercise",
    "options": "Workout Log Exercise"
+  },
+  {
+   "description": "One row per set: reps and weight.",
+   "fieldname": "set_plan",
+   "fieldtype": "Table",
+   "label": "Set Plan",
+   "options": "Workout Log Set"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-25 21:00:00.000000",
+ "modified": "2026-10-26 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Training",
  "name": "Workout Log",

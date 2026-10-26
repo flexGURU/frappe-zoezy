@@ -42,6 +42,26 @@ def make_subscription(client: str, package: str, from_date, to_date=None):
 	).insert(ignore_permissions=True)
 
 
+def make_trainer(email: str = "test-trainer@zoezy.test") -> str:
+	if not frappe.db.exists("User", email):
+		user = frappe.get_doc(
+			{"doctype": "User", "email": email, "first_name": "Test", "send_welcome_email": 0}
+		).insert(ignore_permissions=True)
+		user.add_roles("Trainer")
+	return email
+
+
+def manual_sets(exercise: str, *sets: tuple[int, float]) -> list[dict]:
+	return [
+		{"exercise": exercise, "set_no": i, "reps": reps, "weight": weight}
+		for i, (reps, weight) in enumerate(sets, start=1)
+	]
+
+
+def plan_row(exercise: str, sets: int, mode: str = "Manual", **extra) -> dict:
+	return {"exercise": exercise, "sets": sets, "weight_mode": mode, **extra}
+
+
 def make_exercise(name: str, category: str) -> str:
 	if not frappe.db.exists("Workout Category", category):
 		frappe.get_doc({"doctype": "Workout Category", "category_name": category}).insert()

@@ -1,5 +1,6 @@
+from collections import defaultdict
+
 import frappe
-from frappe.query_builder import DocType
 
 from .utils import get_session_client, log_throw_error
 
@@ -15,63 +16,72 @@ def get_weekly_plan() -> list[dict]:
 		return list(week.values())
 
 	try:
-		workout_log = DocType("Workout Log")
-		workout_log_exercise = DocType("Workout Log Exercise")
-		rows = (
-			frappe.qb.from_(workout_log)
-			.join(workout_log_exercise)
-			.on(workout_log.name == workout_log_exercise.parent)
-			.where(workout_log.client == client)
-			.select(
-				workout_log.name,
-				workout_log.day,
-				workout_log.category,
-				workout_log.total_sets,
-				workout_log_exercise.exercise,
-				workout_log_exercise.sets,
-				workout_log_exercise.rep_range,
-				workout_log_exercise.video_url,
-				workout_log_exercise.description,
-				workout_log_exercise.progressive_overload,
-				workout_log_exercise.stagnant_weight,
-				workout_log_exercise.start_weight,
-				workout_log_exercise.progression_weight,
-				workout_log_exercise.final_weight,
-			)
-			.orderby(workout_log.creation)
-			.orderby(workout_log_exercise.idx)
-		).run(as_dict=True)
+		logs = frappe.get_all(
+			"Workout Log",
+			filters={"client": client},
+			fields=["name", "day", "category", "total_sets"],
+			order_by="creation asc",
+		)
+		names = [log.name for log in logs]
+		exercises = frappe.get_all(
+			"Workout Log Exercise",
+			filters={"parent": ["in", names], "parenttype": "Workout Log"},
+			fields=[
+				"parent",
+				"exercise",
+				"sets",
+				"rep_range",
+				"weight_mode",
+				"start_weight",
+				"progression_weight",
+				"final_weight",
+				"video_url",
+				"description",
+			],
+			order_by="idx asc",
+		)
+		sets = frappe.get_all(
+			"Workout Log Set",
+			filters={"parent": ["in", names], "parenttype": "Workout Log"},
+			fields=["parent", "exercise", "set_no", "reps", "weight"],
+			order_by="idx asc",
+		)
 	except Exception:
 		log_throw_error("Error fetching your workout plan. Please try again.")
 
-	sessions: dict[str, dict] = {}
-	for row in rows:
-		if row.day not in week:
-			continue
+	sets_by_exercise = defaultdict(list)
+	for s in sets:
+		sets_by_exercise[(s.parent, s.exercise)].append(
+			{"set_no": s.set_no, "reps": s.reps, "weight": s.weight}
+		)
 
-		if row.name not in sessions:
-			sessions[row.name] = {
-				"name": row.name,
-				"category": row.category,
-				"total_sets": row.total_sets,
-				"exercises": [],
-			}
-			week[row.day]["sessions"].append(sessions[row.name])
-
-		progressive = bool(row.progressive_overload)
-		sessions[row.name]["exercises"].append(
+	exercises_by_log = defaultdict(list)
+	for e in exercises:
+		progressive = e.weight_mode == "Progressive"
+		exercises_by_log[e.parent].append(
 			{
-				"exercise": row.exercise,
-				"sets": row.sets,
-				"reps": row.rep_range,
-				"video_url": row.video_url,
-				"notes": row.description,
-				"progressive_overload": progressive,
-				"weight": None if progressive else (row.stagnant_weight or None),
-				"start_weight": row.start_weight if progressive else None,
-				"progression_weight": row.progression_weight if progressive else None,
-				"final_weight": row.final_weight if progressive else None,
+				"exercise": e.exercise,
+				"sets": e.sets,
+				"reps": e.rep_range,
+				"weight_mode": e.weight_mode,
+				"start_weight": e.start_weight if progressive else None,
+				"progression_weight": e.progression_weight if progressive else None,
+				"final_weight": e.final_weight,
+				"set_details": sets_by_exercise[(e.parent, e.exercise)],
+				"video_url": e.video_url,
+				"notes": e.description,
 			}
 		)
+
+	for log in logs:
+		if log.day in week:
+			week[log.day]["sessions"].append(
+				{
+					"name": log.name,
+					"category": log.category,
+					"total_sets": log.total_sets,
+					"exercises": exercises_by_log[log.name],
+				}
+			)
 
 	return list(week.values())

@@ -8,3 +8,4 @@ zoezy.patches.v1_0.repair_existing_records
 zoezy.patches.v1_0.remove_duplicate_dashboard
 zoezy.patches.v1_0.enable_client_signup
 zoezy.patches.v1_0.set_desk_logo
+zoezy.patches.v1_0.convert_to_set_plan

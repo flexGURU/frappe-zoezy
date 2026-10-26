@@ -1,6 +1,6 @@
 import { dayjs } from "frappe-ui"
 
-import type { Exercise, PlanDay, Weekday } from "@/types"
+import type { PlanDay, Weekday } from "@/types"
 
 export const WEEKDAYS: Weekday[] = [
 	"Monday",
@@ -36,13 +36,4 @@ export function daySummary(plan: PlanDay | undefined) {
 		sets: sessions.reduce((n, s) => n + s.total_sets, 0),
 		categories: sessions.map((s) => s.category),
 	}
-}
-
-export function setWeights(exercise: Exercise): number[] {
-	if (exercise.progressive_overload) {
-		const start = exercise.start_weight ?? 0
-		const step = exercise.progression_weight ?? 0
-		return Array.from({ length: exercise.sets }, (_, i) => start + step * i)
-	}
-	return exercise.weight ? Array(exercise.sets).fill(exercise.weight) : []
 }

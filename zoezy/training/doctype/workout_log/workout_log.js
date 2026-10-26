@@ -1,45 +1,29 @@
 frappe.ui.form.on("Workout Log", {
 	refresh(frm) {
 		filterExercisesByCategory(frm);
+		frm.set_intro(
+			__(
+				"Trainers edit workout plans in the Zoezy app, where each set has its own reps and weight."
+			),
+			"blue"
+		);
+		frm.add_custom_button(__("Edit in Zoezy"), () => {
+			window.open(`/zoezy/admin/plans/${encodeURIComponent(frm.doc.name)}`, "_blank");
+		});
 	},
 
 	category(frm) {
 		filterExercisesByCategory(frm);
 		frm.clear_table("exercises");
-		frm.refresh_field("exercises");
+		frm.clear_table("set_plan");
+		frm.refresh_fields(["exercises", "set_plan"]);
 	},
 });
 
-frappe.ui.form.on("Workout Log Exercise", {
-	sets: setFinalWeight,
-	start_weight: setFinalWeight,
-	progression_weight: setFinalWeight,
-	progressive_overload: setFinalWeight,
-});
-
-function setFinalWeight(frm, cdt, cdn) {
-	const row = locals[cdt][cdn];
-	const finalWeight = row.progressive_overload
-		? (row.start_weight || 0) +
-		  (row.progression_weight || 0) * Math.max((row.sets || 1) - 1, 0)
-		: 0;
-	frappe.model.set_value(cdt, cdn, "final_weight", finalWeight);
-}
-
 function filterExercisesByCategory(frm) {
-	frm.set_query("exercise", "exercises", () => {
-		if (!frm.doc.category) {
-			return {
-				filters: {
-					name: ["in", []],
-				},
-			};
-		}
-
-		return {
-			filters: {
-				category: frm.doc.category,
-			},
-		};
-	});
+	const filters = frm.doc.category ? { category: frm.doc.category } : { name: ["in", []] };
+	frm.set_query("exercise", "exercises", () => ({ filters }));
+	frm.set_query("exercise", "set_plan", () => ({
+		filters: { name: ["in", (frm.doc.exercises || []).map((row) => row.exercise)] },
+	}));
 }

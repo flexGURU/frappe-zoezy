@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "creation": "2026-10-26 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "exercise",
+  "set_no",
+  "column_break_reps",
+  "reps",
+  "weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "exercise",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Exercise",
+   "options": "Exercise Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "set_no",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Set",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_reps",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reps",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Reps",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weight (kg)",
+   "non_negative": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2026-10-26 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Training",
+ "name": "Workout Log Set",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

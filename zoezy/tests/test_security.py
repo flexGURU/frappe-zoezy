@@ -4,8 +4,15 @@ import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import today
 
-from zoezy.api import auth, invoice, profile, subscription, workout
-from zoezy.tests.factories import make_client, make_exercise, make_package, make_subscription
+from zoezy.api import admin, auth, invoice, profile, subscription, workout
+from zoezy.tests.factories import (
+	make_client,
+	make_exercise,
+	make_package,
+	make_subscription,
+	manual_sets,
+	plan_row,
+)
 
 ALICE = "alice@zoezy.test"
 BOB = "bob@zoezy.test"
@@ -31,7 +38,8 @@ class TestPortalSecurity(IntegrationTestCase):
 					"client": email,
 					"day": "Monday",
 					"category": "Test Legs",
-					"exercises": [{"exercise": exercise, "sets": 3, "rep_range": "10"}],
+					"exercises": [plan_row(exercise, 1)],
+					"set_plan": manual_sets(exercise, (10, 20)),
 				}
 			).insert()
 
@@ -131,3 +139,33 @@ class TestPortalSecurity(IntegrationTestCase):
 
 			frappe.set_user(ALICE)
 			self.assertIn("branding", page.get_context().boot)
+
+	def test_clients_cannot_use_admin_endpoints(self):
+		plan = frappe.get_all("Workout Log", pluck="name")[0]
+		invoice_name = frappe.get_all("Client Invoice", pluck="name")[0]
+		calls = [
+			lambda: admin.get_overview(),
+			lambda: admin.create_client("Eve", "Hacker", "eve@zoezy.test"),
+			lambda: admin.get_client(BOB),
+			lambda: admin.update_client(BOB, "Bob", "Changed"),
+			lambda: admin.set_portal_access(BOB, False),
+			lambda: admin.send_invite(BOB),
+			lambda: admin.get_workout_plan(plan),
+			lambda: admin.save_workout_plan({"client": ALICE, "day": "Friday", "category": "Test Legs"}),
+			lambda: admin.record_payment(invoice_name, 1),
+			lambda: admin.cancel_document("Client Invoice", invoice_name),
+		]
+		for user in (ALICE, "Guest"):
+			frappe.set_user(user)
+			for call in calls:
+				with self.assertRaises(frappe.PermissionError):
+					call()
+
+	def test_clients_cannot_run_reports_or_list_records(self):
+		from frappe.desk.query_report import run
+
+		frappe.set_user(ALICE)
+		with self.assertRaises(frappe.PermissionError):
+			run("Profit Analysis", filters={"periodicity": "Monthly"}, ignore_prepared_report=True)
+		with self.assertRaises(frappe.PermissionError):
+			frappe.client.get_list("Client Invoice", fields=[{"COUNT": "*", "as": "total"}])

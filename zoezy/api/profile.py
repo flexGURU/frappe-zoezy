@@ -4,6 +4,7 @@ from frappe.core.doctype.user.user import User
 from zoezy.zoezy.doctype.zoezy_settings.zoezy_settings import get_settings
 
 from .auth import PHONE_PATTERN, clean_name
+from .permission import has_desk_permission
 from .utils import get_session_client
 
 
@@ -29,6 +30,8 @@ def get_profile() -> dict:
 		"phone": user.phone,
 		"image": user.user_image,
 		"client": client,
+		"is_staff": has_desk_permission(),
+		"is_admin": "System Manager" in frappe.get_roles(),
 		"settings": get_settings(),
 	}
 

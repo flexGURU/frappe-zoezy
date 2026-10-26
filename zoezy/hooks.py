@@ -17,7 +17,7 @@ add_to_apps_screen = [
 	{
 		"title": app_title,
 		"logo": "/assets/zoezy/icons/desktop_icons/zoezy.svg",
-		"route": "/desk/zoezy",
+		"route": "/zoezy/admin",
 		"has_permission": "zoezy.api.permission.has_desk_permission",
 	},
 	{

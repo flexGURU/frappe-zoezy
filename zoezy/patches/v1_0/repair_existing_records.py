@@ -16,6 +16,8 @@ def execute():
 
 
 def recompute_final_weights():
+	if not frappe.db.has_column("Workout Log Exercise", "progressive_overload"):
+		return
 	rows = frappe.get_all(
 		"Workout Log Exercise",
 		filters={"progressive_overload": 1},
