@@ -2,7 +2,7 @@
 import { Button, Dialog, ErrorMessage, type ErrorMessageValue } from "frappe-ui";
 import { ref, useId, watch } from "vue";
 
-import { type FieldDef, missingRequired } from "@/admin/fields";
+import { type FieldDef, cleanValues, missingRequired } from "@/admin/fields";
 import FieldInput from "./FieldInput.vue";
 
 const props = defineProps<{
@@ -39,7 +39,7 @@ async function submit() {
 	saving.value = true;
 	error.value = undefined;
 	try {
-		await props.onSubmit(form.value);
+		await props.onSubmit(cleanValues(props.fields, form.value));
 		open.value = false;
 	} catch (e) {
 		error.value = e as Error;

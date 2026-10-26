@@ -59,7 +59,13 @@ function formatSummary(item: ReportResult["report_summary"][number]) {
 	<div class="space-y-4">
 		<AdminHeader title="Profit Analysis" subtitle="Billing">
 			<template #actions>
-				<Button aria-label="Refresh" tooltip="Refresh" :disabled="loading" @click="run">
+				<Button
+					variant="outline"
+					aria-label="Refresh"
+					tooltip="Refresh"
+					:disabled="loading"
+					@click="run"
+				>
 					<span
 						class="lucide-refresh-cw size-4"
 						:class="loading ? 'animate-spin' : ''"

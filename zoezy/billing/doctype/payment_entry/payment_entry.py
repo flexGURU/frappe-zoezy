@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt
 
@@ -42,14 +43,16 @@ class PaymentEntry(Document):
 
 	def validate_amount(self) -> None:
 		if flt(self.amount) <= 0:
-			frappe.throw("Amount must be greater than zero.")
+			frappe.throw(_("Amount must be greater than zero."))
 
 		invoice = frappe.db.get_value(
 			"Client Invoice", self.invoice, ["docstatus", "outstanding_amount"], as_dict=True
 		)
 		if invoice.docstatus != 1:
-			frappe.throw(f"Invoice {self.invoice} must be submitted before it can be paid.")
+			frappe.throw(_("Invoice {0} must be submitted before it can be paid.").format(self.invoice))
 		if flt(invoice.outstanding_amount) <= 0:
-			frappe.throw(f"Invoice {self.invoice} is already fully paid.")
+			frappe.throw(_("Invoice {0} is already fully paid.").format(self.invoice))
 		if flt(self.amount) > flt(invoice.outstanding_amount):
-			frappe.throw(f"Amount cannot exceed the outstanding amount of {invoice.outstanding_amount}.")
+			frappe.throw(
+				_("Amount cannot exceed the outstanding amount of {0}.").format(invoice.outstanding_amount)
+			)

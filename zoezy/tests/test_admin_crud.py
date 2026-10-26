@@ -252,3 +252,63 @@ class TestTrainerCrud(IntegrationTestCase):
 		self.assertTrue(rows)
 		self.assertEqual(sum(row["collected"] for row in rows), 1000)
 		self.assertEqual(sum(row["outstanding"] for row in rows), 2000)
+
+	def test_client_forms_accept_blank_numbers(self):
+		name = frappe.call(
+			admin.create_client,
+			first_name="Blank",
+			last_name="Age",
+			email=NEW_CLIENT,
+			phone="",
+			lead_source="",
+			age="",
+			send_invite=0,
+		)
+		self.assertEqual(client_api.get("Client", name)["age"], 0)
+		frappe.call(
+			admin.update_client, name=name, first_name="Blank", last_name="Age", age="34", lead_source=""
+		)
+		self.assertEqual(client_api.get("Client", name)["age"], 34)
+		frappe.call(admin.set_portal_access, name=name, enabled="false")
+		self.assertEqual(frappe.db.get_value("User", NEW_CLIENT, "enabled"), 0)
+
+	def test_send_invite(self):
+		from unittest.mock import patch
+
+		from frappe.core.doctype.user.user import User
+
+		with patch.object(User, "password_reset_mail") as mail:
+			admin.send_invite(self.client_name)
+		mail.assert_called_once()
+		self.assertIn("/update-password?key=", mail.call_args.args[0])
+
+		with patch.object(User, "password_reset_mail", side_effect=frappe.OutgoingEmailError):
+			with self.assertRaises(frappe.ValidationError) as raised:
+				admin.send_invite(self.client_name)
+		self.assertIn("Email isn't set up yet", str(raised.exception))
+
+		admin.set_portal_access(self.client_name, False)
+		with self.assertRaises(frappe.ValidationError):
+			admin.send_invite(self.client_name)
+
+	def test_settings_logo_is_made_public(self):
+		frappe.set_user("Administrator")
+		file = frappe.get_doc(
+			{"doctype": "File", "file_name": "e2e-logo.png", "content": b"\x89PNG\r\n", "is_private": 1}
+		).insert()
+		self.assertTrue(file.file_url.startswith("/private/"))
+		self.addCleanup(remove_files, file.file_name)
+		frappe.set_user(self.trainer)
+
+		updated = client_api.set_value("Zoezy Settings", "Zoezy Settings", {"app_logo": file.file_url})
+		self.assertTrue(updated["app_logo"].startswith("/files/"))
+		self.assertEqual(frappe.db.get_value("File", file.name, "is_private"), 0)
+
+
+def remove_files(file_name: str) -> None:
+	import os
+
+	for folder in ("public", "private"):
+		path = frappe.get_site_path(folder, "files", file_name)
+		if os.path.exists(path):
+			os.remove(path)

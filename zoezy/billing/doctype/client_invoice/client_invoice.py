@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import add_days, flt, getdate, today
 
@@ -48,7 +49,7 @@ class ClientInvoice(Document):
 	def validate_subscription(self) -> None:
 		subscription_client = frappe.db.get_value("Client Subscription", self.subscription, "client")
 		if subscription_client != self.client:
-			frappe.throw(f"Subscription {self.subscription} does not belong to {self.client}.")
+			frappe.throw(_("Subscription {0} does not belong to {1}.").format(self.subscription, self.client))
 
 	def set_defaults(self) -> None:
 		if not self.currency:
@@ -57,12 +58,12 @@ class ClientInvoice(Document):
 			due_days = frappe.db.get_single_value("Zoezy Settings", "invoice_due_days") or 0
 			self.due_date = add_days(self.posting_date, due_days)
 		if getdate(self.due_date) < getdate(self.posting_date):
-			frappe.throw("Due Date cannot be before the Posting Date.")
+			frappe.throw(_("Due Date cannot be before the Posting Date."))
 
 	def set_total(self) -> None:
 		for row in self.packages:
 			if flt(row.unit_price) < 0:
-				frappe.throw(f"Row {row.idx}: Unit Price cannot be negative.")
+				frappe.throw(_("Row {0}: Unit Price cannot be negative.").format(row.idx))
 		self.total = flt(sum(flt(row.unit_price) for row in self.packages), 2)
 
 	def set_status(self) -> None:
@@ -72,10 +73,12 @@ class ClientInvoice(Document):
 		outstanding = flt(self.outstanding_amount - amount, 2)
 		if outstanding < 0:
 			frappe.throw(
-				f"Payment exceeds the outstanding amount of {self.outstanding_amount} on {self.name}."
+				_("Payment exceeds the outstanding amount of {0} on {1}.").format(
+					self.outstanding_amount, self.name
+				)
 			)
 		if outstanding > self.total:
-			frappe.throw(f"Outstanding amount on {self.name} cannot exceed its total.")
+			frappe.throw(_("Outstanding amount on {0} cannot exceed its total.").format(self.name))
 
 		self.outstanding_amount = outstanding
 		self.set_status()
@@ -129,4 +132,3 @@ def mark_overdue_invoices() -> None:
 	)
 	for name in overdue:
 		frappe.db.set_value("Client Invoice", name, "status", "Overdue")
-	frappe.db.commit()

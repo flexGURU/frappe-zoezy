@@ -112,6 +112,7 @@ function remove(row: Row) {
 		<AdminHeader title="Invoices" subtitle="Billing">
 			<template #actions>
 				<Button
+					variant="outline"
 					icon-left="lucide-hand-coins"
 					label="Record payment"
 					@click="payment.open = true"

@@ -1,6 +1,7 @@
 from collections import defaultdict
 
 import frappe
+from frappe import _
 
 from .utils import get_session_client, log_throw_error
 
@@ -47,7 +48,7 @@ def get_weekly_plan() -> list[dict]:
 			order_by="idx asc",
 		)
 	except Exception:
-		log_throw_error("Error fetching your workout plan. Please try again.")
+		log_throw_error(_("Error fetching your workout plan. Please try again."))
 
 	sets_by_exercise = defaultdict(list)
 	for s in sets:

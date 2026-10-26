@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import add_days, getdate, today
 
@@ -45,7 +46,7 @@ class ClientSubscription(Document):
 
 	def validate_dates(self) -> None:
 		if self.from_date and self.to_date and getdate(self.to_date) < getdate(self.from_date):
-			frappe.throw("To Date cannot be before From Date.")
+			frappe.throw(_("To Date cannot be before From Date."))
 
 	def validate_overlap(self) -> None:
 		overlapping = frappe.db.get_value(
@@ -61,8 +62,9 @@ class ClientSubscription(Document):
 		)
 		if overlapping:
 			frappe.throw(
-				f"This client already has a {self.package_type} subscription "
-				f"({overlapping}) covering these dates."
+				_("This client already has a {0} subscription ({1}) covering these dates.").format(
+					self.package_type, overlapping
+				)
 			)
 
 	@frappe.whitelist()

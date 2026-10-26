@@ -48,3 +48,15 @@ export function missingRequired(fields: FieldDef[], values: Record<string, unkno
 		return value === "" || value == null || (Array.isArray(value) && !value.length);
 	});
 }
+
+const NUMBER_TYPES: FieldType[] = ["int", "float", "currency"];
+
+export function cleanValues(fields: FieldDef[], values: Record<string, unknown>) {
+	const cleaned = { ...values };
+	for (const field of fields) {
+		if (!NUMBER_TYPES.includes(field.type)) continue;
+		const value = cleaned[field.fieldname];
+		cleaned[field.fieldname] = value === "" || value == null ? null : Number(value);
+	}
+	return cleaned;
+}

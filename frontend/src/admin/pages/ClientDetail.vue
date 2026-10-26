@@ -18,7 +18,7 @@ import FieldInput from "@/admin/components/FieldInput.vue";
 import FormDialog from "@/admin/components/FormDialog.vue";
 import PaymentDialog from "@/admin/components/PaymentDialog.vue";
 import { type Row, adminCall } from "@/admin/data";
-import type { FieldDef } from "@/admin/fields";
+import { type FieldDef, cleanValues } from "@/admin/fields";
 import { useMoney } from "@/admin/money";
 import SkeletonBlock from "@/components/SkeletonBlock.vue";
 import type { InvoiceStatus, SubscriptionStatus } from "@/types";
@@ -63,7 +63,10 @@ async function saveProfile() {
 	saving.value = true;
 	error.value = undefined;
 	try {
-		await adminCall("update_client", { name: props.name, ...form });
+		await adminCall("update_client", {
+			name: props.name,
+			...cleanValues(profileFields, form),
+		});
 		await client.reload();
 		toast.success("Client updated");
 	} catch (e) {
@@ -166,11 +169,17 @@ function remove() {
 		>
 			<template #actions>
 				<Button
+					variant="outline"
 					icon-left="lucide-dumbbell"
 					label="New plan"
 					@click="router.push({ name: 'AdminPlanNew', query: { client: name } })"
 				/>
-				<Button icon="lucide-trash-2" aria-label="Delete client" @click="remove" />
+				<Button
+					variant="outline"
+					icon="lucide-trash-2"
+					aria-label="Delete client"
+					@click="remove"
+				/>
 			</template>
 		</AdminHeader>
 

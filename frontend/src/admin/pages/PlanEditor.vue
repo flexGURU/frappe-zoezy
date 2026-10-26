@@ -162,6 +162,7 @@ function remove() {
 		>
 			<template #actions>
 				<Button
+					variant="outline"
 					v-if="name"
 					icon="lucide-trash-2"
 					aria-label="Delete plan"
@@ -225,6 +226,7 @@ function remove() {
 						@move="move(i, $event)"
 					/>
 					<Button
+						variant="outline"
 						class="w-full"
 						size="lg"
 						icon-left="lucide-plus"

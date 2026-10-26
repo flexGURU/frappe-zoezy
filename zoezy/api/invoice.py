@@ -1,6 +1,7 @@
 from collections import defaultdict
 
 import frappe
+from frappe import _
 
 from .utils import get_session_client, log_throw_error
 
@@ -44,7 +45,7 @@ def get_invoices() -> list[dict]:
 			order_by="posting_date desc",
 		)
 	except Exception:
-		log_throw_error("Error fetching invoices. Please try again.")
+		log_throw_error(_("Error fetching invoices. Please try again."))
 
 	packages_by_invoice = defaultdict(list)
 	for package in packages:

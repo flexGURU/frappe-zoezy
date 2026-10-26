@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from frappe.utils import add_days, flt, now_datetime, today, validate_email_address
 
 from zoezy.clients.doctype.client.client import setup_client_user
@@ -20,7 +21,7 @@ SET_FIELDS = ("exercise", "set_no", "reps", "weight")
 
 def require_staff() -> None:
 	if not has_desk_permission():
-		frappe.throw("Only trainers can do this.", frappe.PermissionError)
+		frappe.throw(_("Only trainers can do this."), frappe.PermissionError)
 
 
 @frappe.whitelist()
@@ -70,21 +71,21 @@ def create_client(
 	email: str,
 	phone: str | None = None,
 	lead_source: str | None = None,
-	age: int | None = None,
-	send_invite: bool = True,
+	age: int | str | None = None,
+	send_invite: bool | int | str = True,
 ) -> str:
 	require_staff()
-	first_name, last_name = clean_name(first_name, "First name"), clean_name(last_name, "Last name")
+	first_name, last_name = clean_name(first_name, _("First name")), clean_name(last_name, _("Last name"))
 	phone = validate_phone(phone)
 	email = (email or "").strip().lower()
 	if not validate_email_address(email):
-		frappe.throw("Please enter a valid email address.")
+		frappe.throw(_("Please enter a valid email address."))
 	if frappe.db.exists("Client", email):
-		frappe.throw(f"{email} is already a client.")
+		frappe.throw(_("{0} is already a client.").format(email))
 
 	if frappe.db.exists("User", email):
 		if frappe.db.get_value("User", email, "user_type") == "System User":
-			frappe.throw(f"{email} belongs to a staff account and can't be added as a client.")
+			frappe.throw(_("{0} belongs to a staff account and can't be added as a client.").format(email))
 	else:
 		frappe.get_doc(
 			{
@@ -94,7 +95,7 @@ def create_client(
 				"first_name": first_name,
 				"last_name": last_name,
 				"phone": phone,
-				"send_welcome_email": 1 if frappe.utils.cint(send_invite) else 0,
+				"send_welcome_email": 1 if frappe.utils.cint(frappe.utils.sbool(send_invite)) else 0,
 			}
 		).insert(ignore_permissions=True)
 
@@ -159,7 +160,7 @@ def update_client(
 	last_name: str,
 	phone: str | None = None,
 	lead_source: str | None = None,
-	age: int | None = None,
+	age: int | str | None = None,
 ) -> str:
 	require_staff()
 	client = frappe.get_doc("Client", name)
@@ -167,9 +168,9 @@ def update_client(
 
 	user = frappe.get_doc("User", client.email)
 	if user.user_type == "System User":
-		frappe.throw("Staff accounts are managed by the administrator.")
-	user.first_name = clean_name(first_name, "First name")
-	user.last_name = clean_name(last_name, "Last name")
+		frappe.throw(_("Staff accounts are managed by the administrator."))
+	user.first_name = clean_name(first_name, _("First name"))
+	user.last_name = clean_name(last_name, _("Last name"))
 	user.phone = validate_phone(phone)
 	user.save(ignore_permissions=True)
 
@@ -181,13 +182,13 @@ def update_client(
 
 
 @frappe.whitelist(methods=["POST"])
-def set_portal_access(name: str, enabled: bool) -> None:
+def set_portal_access(name: str, enabled: bool | int | str) -> None:
 	require_staff()
 	frappe.get_doc("Client", name).check_permission("write")
 	if frappe.db.get_value("User", name, "user_type") == "System User":
-		frappe.throw("Staff accounts are managed by the administrator.")
+		frappe.throw(_("Staff accounts are managed by the administrator."))
 	user = frappe.get_doc("User", name)
-	user.enabled = 1 if frappe.utils.cint(enabled) else 0
+	user.enabled = 1 if frappe.utils.cint(frappe.utils.sbool(enabled)) else 0
 	user.save(ignore_permissions=True)
 
 
@@ -197,8 +198,15 @@ def send_invite(name: str) -> None:
 	frappe.get_doc("Client", name).check_permission("read")
 	user = frappe.get_doc("User", name)
 	if not user.enabled:
-		frappe.throw("Turn on app access for this client first.")
-	user.reset_password(send_email=True)
+		frappe.throw(_("Turn on app access for this client first."))
+	try:
+		user._reset_password(send_email=True)
+	except frappe.OutgoingEmailError:
+		frappe.clear_messages()
+		frappe.throw(
+			_("Email isn't set up yet. Ask the administrator to add an outgoing email account."),
+			title=_("Couldn't send the email"),
+		)
 
 
 @frappe.whitelist(methods=["POST"])
@@ -248,7 +256,7 @@ def create_invoice(
 		for row in frappe.parse_json(packages) or []
 	]
 	if not rows:
-		frappe.throw("Add at least one package.")
+		frappe.throw(_("Add at least one package."))
 
 	invoice = frappe.get_doc(
 		{
@@ -268,7 +276,7 @@ def create_invoice(
 @frappe.whitelist(methods=["POST"])
 def record_payment(
 	invoice: str,
-	amount: float,
+	amount: float | str,
 	mode_of_payment: str = "M-Pesa",
 	reference_no: str | None = None,
 	posting_date: str | None = None,
@@ -293,7 +301,7 @@ def record_payment(
 def cancel_document(doctype: str, name: str) -> None:
 	require_staff()
 	if doctype not in ("Client Invoice", "Payment Entry"):
-		frappe.throw("Only invoices and payments can be cancelled here.", frappe.PermissionError)
+		frappe.throw(_("Only invoices and payments can be cancelled here."), frappe.PermissionError)
 	doc = frappe.get_doc(doctype, name)
 	doc.cancel()
 
@@ -305,5 +313,5 @@ def pick(row, fields) -> dict:
 def validate_phone(phone: str | None) -> str:
 	phone = (phone or "").strip()
 	if phone and not PHONE_PATTERN.match(phone):
-		frappe.throw("Please enter a valid phone number.")
+		frappe.throw(_("Please enter a valid phone number."))
 	return phone
