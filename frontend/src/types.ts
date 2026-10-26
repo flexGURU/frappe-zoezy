@@ -1,4 +1,3 @@
-
 export type Weekday =
 	| "Monday"
 	| "Tuesday"
@@ -8,17 +7,25 @@ export type Weekday =
 	| "Saturday"
 	| "Sunday"
 
+export type WeightMode = "Manual" | "Progressive"
+
+export interface SetDetail {
+	set_no: number
+	reps: number
+	weight: number
+}
+
 export interface Exercise {
 	exercise: string
 	sets: number
 	reps: string
-	video_url: string | null
-	notes: string | null
-	progressive_overload: boolean
-	weight: number | null
+	weight_mode: WeightMode
 	start_weight: number | null
 	progression_weight: number | null
 	final_weight: number | null
+	set_details: SetDetail[]
+	video_url: string | null
+	notes: string | null
 }
 
 export interface Session {
@@ -57,6 +64,8 @@ export interface Profile {
 		date_joined: string | null
 		age: number | null
 	} | null
+	is_staff: boolean
+	is_admin: boolean
 	settings: AppSettings
 }
 

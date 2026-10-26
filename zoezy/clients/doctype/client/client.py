@@ -36,7 +36,7 @@ class Client(Document):
 		setup_client_user(self.email)
 
 	def set_full_name(self):
-		self.full_name = " ".join(filter(None, [self.first_name, self.last_name])) or self.email
+		self.full_name = " ".join(part for part in (self.first_name, self.last_name) if part) or self.email
 
 
 def setup_client_user(user: str) -> None:

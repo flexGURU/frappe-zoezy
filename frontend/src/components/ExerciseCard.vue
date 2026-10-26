@@ -9,17 +9,19 @@ import WeightLadder from "./WeightLadder.vue";
 const props = defineProps<{ exercise: Exercise; index: number }>();
 
 const open = ref(false);
-const hasWeights = computed(
-	() => props.exercise.progressive_overload || Boolean(props.exercise.weight)
-);
+const progressive = computed(() => props.exercise.weight_mode === "Progressive");
+const weights = computed(() => props.exercise.set_details.map((s) => s.weight));
 const hasDetails = computed(
-	() => hasWeights.value || Boolean(props.exercise.notes || props.exercise.video_url)
+	() =>
+		props.exercise.set_details.length > 0 ||
+		Boolean(props.exercise.notes || props.exercise.video_url)
 );
 const weightSummary = computed(() => {
-	const e = props.exercise;
-	if (e.progressive_overload)
-		return `${formatWeight(e.start_weight)} → ${formatWeight(e.final_weight)}`;
-	return e.weight ? formatWeight(e.weight) : null;
+	const loaded = weights.value.filter((w) => w > 0);
+	if (!loaded.length) return null;
+	const low = Math.min(...loaded);
+	const high = Math.max(...loaded);
+	return low === high ? formatWeight(low) : `${formatWeight(low)} → ${formatWeight(high)}`;
 });
 </script>
 
@@ -50,7 +52,7 @@ const weightSummary = computed(() => {
 					<span v-if="weightSummary" class="inline-flex items-center gap-1 tabular-nums">
 						<span
 							:class="
-								exercise.progressive_overload
+								progressive
 									? 'lucide-trending-up text-ink-green-6'
 									: 'lucide-weight'
 							"
@@ -72,10 +74,10 @@ const weightSummary = computed(() => {
 		</button>
 
 		<div v-if="open" class="space-y-5 border-t border-outline-gray-1 p-4 sm:p-5">
-			<div v-if="hasWeights">
+			<div v-if="exercise.set_details.length">
 				<p class="eyebrow mb-3 text-ink-gray-5">
-					{{ exercise.progressive_overload ? "Progressive overload" : "Working weight" }}
-					<span v-if="exercise.progressive_overload" class="normal-case tracking-normal">
+					{{ progressive ? "Progressive overload" : "Your sets" }}
+					<span v-if="progressive" class="normal-case tracking-normal">
 						· +{{ formatWeight(exercise.progression_weight) }} each set
 					</span>
 				</p>

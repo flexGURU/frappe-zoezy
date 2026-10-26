@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from frappe.utils import get_system_timezone
 
 from zoezy.api.permission import has_app_permission
@@ -9,7 +10,7 @@ no_cache = 1
 
 def get_context():
 	if frappe.session.user != "Guest" and not has_app_permission():
-		frappe.throw("You don't have access to the Zoezy app.", frappe.PermissionError)
+		frappe.throw(_("You don't have access to the Zoezy app."), frappe.PermissionError)
 
 	csrf_token = frappe.sessions.get_csrf_token()
 	frappe.db.commit()
@@ -22,7 +23,7 @@ def get_context():
 @frappe.whitelist(methods=["POST"], allow_guest=True)
 def get_context_for_dev():
 	if not frappe.conf.developer_mode:
-		frappe.throw("This method is only meant for developer mode")
+		frappe.throw(_("This method is only meant for developer mode"))
 	return get_boot()
 
 

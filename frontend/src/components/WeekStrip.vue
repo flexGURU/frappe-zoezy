@@ -28,7 +28,7 @@ const days = computed(() =>
 			class="group flex flex-col items-center gap-1.5 rounded-[18px] py-2.5 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-volt sm:py-3"
 			:class="[
 				selected === d.day
-					? 'bg-night text-white shadow-lg'
+					? 'bg-night text-white shadow-lg dark:bg-volt dark:text-volt-ink'
 					: 'bg-surface-base text-ink-gray-7 hover:bg-surface-gray-2',
 				d.isToday && selected !== d.day ? 'ring-2 ring-inset ring-volt' : '',
 			]"
@@ -36,7 +36,9 @@ const days = computed(() =>
 		>
 			<span
 				class="text-2xs-medium uppercase tracking-wider"
-				:class="selected === d.day ? 'text-white/60' : 'text-ink-gray-5'"
+				:class="
+					selected === d.day ? 'text-white/60 dark:text-volt-ink/70' : 'text-ink-gray-5'
+				"
 			>
 				{{ d.short }}
 			</span>
@@ -46,7 +48,7 @@ const days = computed(() =>
 				:class="
 					d.trains
 						? selected === d.day
-							? 'bg-volt'
+							? 'bg-volt dark:bg-volt-ink'
 							: 'bg-surface-gray-10'
 						: 'bg-transparent'
 				"

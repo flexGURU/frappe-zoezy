@@ -37,11 +37,17 @@ function step(by: 1 | -1) {
 			<template #actions>
 				<div class="hidden gap-2 sm:flex">
 					<Button
+						variant="outline"
 						icon="lucide-chevron-left"
 						aria-label="Previous day"
 						@click="step(-1)"
 					/>
-					<Button icon="lucide-chevron-right" aria-label="Next day" @click="step(1)" />
+					<Button
+						variant="outline"
+						icon="lucide-chevron-right"
+						aria-label="Next day"
+						@click="step(1)"
+					/>
 				</div>
 			</template>
 		</ScreenHeader>

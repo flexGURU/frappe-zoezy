@@ -34,12 +34,15 @@ const activeTab = computed(() => route.name);
 					class="flex items-center gap-3 rounded-[14px] px-3 py-2.5 text-base-medium transition-colors"
 					:class="
 						activeTab === tab.to.name
-							? 'bg-night text-white'
+							? 'bg-night text-white dark:bg-volt dark:text-volt-ink'
 							: 'text-ink-gray-6 hover:bg-surface-gray-2 hover:text-ink-gray-9'
 					"
 				>
 					<span
-						:class="[tab.icon, activeTab === tab.to.name ? 'text-volt' : '']"
+						:class="[
+							tab.icon,
+							activeTab === tab.to.name ? 'text-volt dark:text-volt-ink' : '',
+						]"
 						class="size-5"
 					/>
 					{{ tab.label }}
@@ -85,7 +88,9 @@ const activeTab = computed(() => route.name);
 					<span
 						class="grid h-8 w-14 place-items-center rounded-full transition-colors"
 						:class="
-							activeTab === tab.to.name ? 'bg-night text-volt' : 'text-ink-gray-5'
+							activeTab === tab.to.name
+								? 'bg-night text-volt dark:bg-volt dark:text-volt-ink'
+								: 'text-ink-gray-5'
 						"
 					>
 						<span :class="tab.icon" class="size-5" />

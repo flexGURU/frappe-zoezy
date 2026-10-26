@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 
 
 def log_throw_error(error_message: str) -> None:
@@ -9,6 +10,6 @@ def log_throw_error(error_message: str) -> None:
 def get_session_client() -> str | None:
 	user = frappe.session.user
 	if user == "Guest":
-		frappe.throw("Please log in to continue.", frappe.AuthenticationError)
+		frappe.throw(_("Please log in to continue."), frappe.AuthenticationError)
 
 	return user if frappe.db.exists("Client", user) else None

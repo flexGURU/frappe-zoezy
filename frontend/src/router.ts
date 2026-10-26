@@ -1,7 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router"
 
+import { useProfile } from "./data/resources"
 import { session } from "./data/session"
 import { isWeekday, todayWeekday } from "./utils/week"
+
+const admin = (path: string, name: string, page: () => Promise<unknown>, props = false) => ({
+	path,
+	name,
+	component: page,
+	props,
+})
 
 const router = createRouter({
 	history: createWebHistory("/zoezy"),
@@ -15,6 +23,7 @@ const router = createRouter({
 		{
 			path: "/",
 			component: () => import("@/layouts/AppLayout.vue"),
+			meta: { client: true },
 			children: [
 				{ path: "", name: "Today", component: () => import("@/pages/Today.vue") },
 				{
@@ -31,14 +40,51 @@ const router = createRouter({
 				{ path: "profile", name: "Profile", component: () => import("@/pages/Profile.vue") },
 			],
 		},
+		{
+			path: "/admin",
+			component: () => import("@/admin/AdminLayout.vue"),
+			meta: { staff: true },
+			children: [
+				admin("", "AdminOverview", () => import("@/admin/pages/Overview.vue")),
+				admin("settings", "AdminSettings", () => import("@/admin/pages/Settings.vue")),
+				admin("clients", "AdminClients", () => import("@/admin/pages/Clients.vue")),
+				admin("clients/:name", "AdminClient", () => import("@/admin/pages/ClientDetail.vue"), true),
+				admin("subscriptions", "AdminSubscriptions", () => import("@/admin/pages/Subscriptions.vue")),
+				admin("lead-sources", "AdminLeadSources", () => import("@/admin/pages/LeadSources.vue")),
+				admin("invoices", "AdminInvoices", () => import("@/admin/pages/Invoices.vue")),
+				admin("payments", "AdminPayments", () => import("@/admin/pages/Payments.vue")),
+				admin("packages", "AdminPackages", () => import("@/admin/pages/Packages.vue")),
+				admin(
+					"reports/profit-analysis",
+					"AdminProfitAnalysis",
+					() => import("@/admin/pages/ProfitAnalysis.vue")
+				),
+				admin("plans", "AdminPlans", () => import("@/admin/pages/Plans.vue")),
+				admin("plans/new", "AdminPlanNew", () => import("@/admin/pages/PlanEditor.vue")),
+				admin("plans/:name", "AdminPlan", () => import("@/admin/pages/PlanEditor.vue"), true),
+				admin("exercises", "AdminExercises", () => import("@/admin/pages/Exercises.vue")),
+				admin("categories", "AdminCategories", () => import("@/admin/pages/Categories.vue")),
+			],
+		},
 		{ path: "/:pathMatch(.*)*", redirect: "/" },
 	],
 	scrollBehavior: () => ({ top: 0 }),
 })
 
-router.beforeEach((to) => {
+async function isStaff() {
+	const profile = useProfile()
+	if (!profile.data) await profile.reload()
+	return Boolean(profile.data?.is_staff)
+}
+
+router.beforeEach(async (to) => {
 	if (!to.meta.public && !session.isLoggedIn.value) return { name: "Login" }
 	if (to.name === "Login" && session.isLoggedIn.value) return { name: "Today" }
+	if (to.meta.public) return
+
+	const staff = await isStaff()
+	if (to.meta.staff && !staff) return { name: "Today" }
+	if (to.meta.client && staff) return { name: "AdminOverview" }
 })
 
 export default router

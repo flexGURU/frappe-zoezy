@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from frappe.query_builder import DocType
 
 from .utils import get_session_client, log_throw_error
@@ -34,7 +35,7 @@ def get_subscriptions() -> list[dict]:
 			.orderby(package_type_items.idx)
 		).run(as_dict=True)
 	except Exception:
-		log_throw_error("Error fetching subscriptions. Please try again.")
+		log_throw_error(_("Error fetching subscriptions. Please try again."))
 
 	subscriptions: dict[str, dict] = {}
 	for row in rows:
